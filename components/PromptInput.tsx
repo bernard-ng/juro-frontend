@@ -1,0 +1,88 @@
+"use client";
+import { useState } from "react";
+import Card from "@/components/tailus-ui/Card";
+import { Button } from "@/components/tailus-ui/Button";
+import { Paperclip, X } from "lucide-react";
+import { softIconButton } from "@tailus/themer-button";
+import { cn } from "@/lib/utils";
+
+const PromptInput = () => {
+    const [imageSrc, setImageSrc] = useState('');
+    const [promptCharCount, setPromptCharCount] = useState(0);
+    const [promptValue, setPromptValue] = useState('' as string);
+
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files.length > 0) {
+            const file = e.target.files[0];
+            const url = URL.createObjectURL(file);
+            setImageSrc(url);
+        } else {
+            console.error('No file selected');
+        }
+    };
+
+    const handleRemoveImage = () => {
+        setImageSrc('');
+    };
+    const updateInputHeight = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        e.target.style.height = 'auto';
+        e.target.style.height = `${e.target.scrollHeight}px`;
+        setPromptCharCount(e.target.value.length);
+        setPromptValue(e.target.value);
+    }
+
+    const isOnlySpaces = (str:string) => {
+        return str.trim() === '';
+    }
+
+    return (
+        <div className="fixed bottom-0 inset-x-0 mx-auto w-full max-w-3xl">
+            <div className="h-12 bg-gradient-to-b from-transparent to-gray-50 dark:to-gray-950"></div>
+            <div className="pb-6 bg-gray-50 dark:bg-gray-950">
+                <form action="" method="post">
+                <Card variant="mixed" className="max-w-2xl mx-auto flex gap-4 items-end justify-between dark:bg-gray-900">
+                    <textarea onChange={updateInputHeight} rows={1} className={cn("min-h-6 h-full mb-1 max-h-56 max-w-full w-full resize-none bg-transparent outline-none placeholder-gray-500 text-gray-950 dark:text-white")} placeholder="Entrer le prompt" name="prompt" id="prompt" />
+                    <div className="w-max flex gap-2">
+                        <div className={imageSrc && "-my-1 h-fit flex p-0.5 gap-px w-fit border rounded-full bg-white dark:bg-gray-800 dark:border-white/5"}>
+                            <label className={cn(softIconButton.gray.md, "cursor-pointer focus-within:outline-2")} htmlFor="prompt-file">
+                                <Paperclip className={softIconButton.icon.md} />
+                                <input id="prompt-file" className="size-0" type="file" accept="image/png, image/jpeg, image/jpg, image/webp" onChange={handleImageChange} />
+                            </label>
+                            {
+                                imageSrc && (
+                                    <div className="relative size-max">
+                                        <img
+                                            id="prompt-img-preview"
+                                            className="size-9 object-cover border rounded-[--btn-border-radius] border-gray-950/5 dark:border-white/5"
+                                            alt="prompt image"
+                                            src={imageSrc}
+                                        />
+                                        <Button
+                                            id="remove-img"
+                                            icon="only"
+                                            size="xs"
+                                            variant="soft"
+                                            colorVariant="gray"
+                                            className="absolute top-0 right-0 size-4 rounded-full dark:bg-gray-700 dark:hover:bg-gray-800"
+                                            onClick={handleRemoveImage}
+                                        >
+                                            <X className="!size-2.5" />
+                                        </Button>
+                                    </div>
+                                )
+                            }
+                        </div>
+                        <Button disabled={promptCharCount < 1 || isOnlySpaces(promptValue)} colorVariant="primary" variant="solid" size="md" icon="only" label="Send" className="disabled:bg-transparent dark:disabled:bg-transparent">
+                            <svg className="translate-x-0.5" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32">
+                                <path fill="currentColor" d="M4.176 2.164C2.988 1.57 1.671 2.7 2.077 3.965l2.858 8.883a1 1 0 0 0 .787.68l11.869 1.979c.557.093.557.893 0 .986L5.723 18.471a1 1 0 0 0-.788.68l-2.858 8.886c-.407 1.265.91 2.395 2.099 1.801L29.17 17.343c1.106-.553 1.106-2.13 0-2.684z" />
+                            </svg>
+                        </Button>
+                    </div>
+                    </Card>
+                    </form>
+            </div>
+        </div>
+    )
+}
+
+export default PromptInput;
