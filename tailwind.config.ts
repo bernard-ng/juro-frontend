@@ -12,6 +12,9 @@ const config: Config = {
     themer({
       radius: "smoothest",
       padding: "medium",
+      palette: {
+        extend : "oz"
+      }
     })
   ],
 };
