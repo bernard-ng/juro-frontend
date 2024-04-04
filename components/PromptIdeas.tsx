@@ -36,15 +36,19 @@ export const PromptIdeas = () => {
     const { setIdea } = useContext(IdeaContext);
 
     const handleIdeaClick = (index: number, idea: string) => {
+        const textarea = document.getElementById('prompt') as HTMLTextAreaElement;
+
         if (activeIndex === index) {
             setActiveIndex(-1); 
             setIdea(''); 
+            textarea.value = ''; 
         } else {
             setActiveIndex(index); 
             setIdea(idea);
+            textarea.value = ''; 
+            textarea.value = idea; 
         }
     }
-
     return (
         <div className="mt-12 grid grid-cols-3 gap-4">
             {ideas.map((idea, index) => (

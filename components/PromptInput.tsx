@@ -46,16 +46,18 @@ const PromptInput = () => {
             <div aria-hidden className="h-12 bg-gradient-to-b from-transparent to-gray-50 dark:to-gray-950" />
             <div className="pb-6 bg-gray-50 dark:bg-gray-950">
                 <form action="" method="post">
-                    <Card variant="mixed" className="max-w-2xl mx-auto flex flex-wrap gap-4 items-end justify-between dark:bg-gray-900">
+                    <Card variant="mixed" className="max-w-2xl mx-auto grid [grid-template-columns:1fr_auto] gap-4 items-end justify-between dark:bg-gray-900"> 
                         <textarea
                             onChange={updateInputHeight}
-                            className={cn("min-h-6 h-full mb-1 w-full border max-h-56 block resize-none bg-transparent outline-none transition-[height] placeholder-gray-500 text-gray-950 dark:text-white")}
+                            className={cn("min-h-6 flex h-full w-full mb-1 max-h-56 resize-none bg-transparent outline-none transition-[height] placeholder-gray-500 text-gray-950 dark:text-white")}
                             placeholder="Entrer le prompt"
                             name="prompt"
                             id="prompt"
-                            defaultValue={idea}
-                        />
-                        <div className="w-max flex gap-2 ml-auto">
+                            rows={1}
+                        >
+                            
+                        </textarea>
+                        <div className="flex gap-2 ml-auto">
                             <div className={imageSrc && "-my-1 h-fit flex p-0.5 gap-px w-fit border rounded-full bg-white dark:bg-gray-800 dark:border-white/5"}>
                                 <label className={cn(softIconButton.gray.md, "cursor-pointer focus-within:outline-2")} htmlFor="prompt-file">
                                     <Paperclip className={softIconButton.icon.md} />
