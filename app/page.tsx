@@ -12,7 +12,7 @@ export default function Home() {
           </div>
           <div className="mt-6">
             <h1 className="text-2xl text-gray-950 dark:text-white">
-              Bonjour, Je suis <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-secondary-400">Juro.</span> <span className="text-gray-600 dark:text-gray-400">Votre assistant juriste, je réponds à toutes vos questions sur le droit</span></h1>
+              Bonjour, Je suis <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-secondary-400">Juro.</span> <span className="text-gray-600 dark:text-gray-400">Votre assistant juriste, je réponds à toutes vos questions sur le Droit congolais</span></h1>
           </div>
           <PromptIdeas />
         </div>
