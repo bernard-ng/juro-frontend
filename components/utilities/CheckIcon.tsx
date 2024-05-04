@@ -1,7 +1,7 @@
 import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 
-export default ({className=""}) => {
+const CheckIcon = ({className=""}) => {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -23,3 +23,5 @@ export default ({className=""}) => {
         </svg>
     )
 }
+
+export default CheckIcon

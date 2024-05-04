@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { PromptIdeas } from "@/components/PromptIdeas";
 import PromptInput from "@/components/PromptInput";
 import IdeaProvider from "./idea-provider";
@@ -8,7 +9,7 @@ export default function Home() {
       <IdeaProvider>
         <div className="max-w-2xl w-full mx-auto">
           <div className="size-fit">
-            <img src="/icon.svg" className="size-9" />
+            <Image src="/icon.svg" alt="Juro Logo" className="size-9" />
           </div>
           <div className="mt-6">
             <h1 className="text-2xl text-gray-950 dark:text-white">

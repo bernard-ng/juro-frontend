@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { useState, useContext, useEffect } from "react";
 import Card from "@/components/tailus-ui/Card";
 import { Button } from "@/components/tailus-ui/Button";
@@ -66,7 +67,7 @@ const PromptInput = () => {
                                 {
                                     imageSrc && (
                                         <div className="relative size-max">
-                                            <img
+                                            <Image
                                                 id="prompt-img-preview"
                                                 className="size-9 object-cover border rounded-[--btn-border-radius] border-gray-950/5 dark:border-white/5"
                                                 alt="prompt image"
