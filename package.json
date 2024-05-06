@@ -9,9 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-form": "^0.0.3",
     "@tailus/themer": "^0.0.5",
     "@tailus/themer-button": "^0.0.7",
     "@tailus/themer-card": "^0.0.1",
+    "@tailus/themer-form": "^0.0.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "framer-motion": "^11.0.24",
