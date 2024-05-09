@@ -4,8 +4,8 @@ import { GeistSans } from 'geist/font/sans';
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Juro",
-  description: "Assistant juriste",
+  title: "Juro | Assistant Juriste",
+  description: "Je suis Juro. Votre assistant juriste, je réponds à toutes vos questions sur le Droit congolais",
 };
 
 export default function RootLayout({
