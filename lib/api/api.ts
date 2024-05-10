@@ -118,8 +118,8 @@ async function fetchApi<T>(url: string, options: RequestInit): Promise<Response<
         return {
             data: null,
             success: false,
-            code: e.response.code,
-            description: e.response.message
+            code: e.response ? e.response.code : 0,
+            description: e.response ? e.response.message : e.message
         } as Response<T>
     }
 }

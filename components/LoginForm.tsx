@@ -2,11 +2,14 @@
 import { Button } from "@/components/tailus-ui/Button";
 import Form from "@/components/tailus-ui/Form";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { login } from "@/lib/api/api";
 
 export const LoginForm = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const router = useRouter();
     
     useEffect(() => {
         if (isSubmitting) {
@@ -16,35 +19,28 @@ export const LoginForm = () => {
         }
     }, [isSubmitting]);
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setIsSubmitting(true);
 
-        fetch('http://15.237.198.160/api/login_check', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
+        try {
+            const response = await login({
                 username: username,
                 password: password,
-            }),
-        })
-        .then(response => response.json())
-        .then(data => {
-            setIsSubmitting(false);
-            if (data.token) {
-                // Login was successful, do something with the token
-                console.log('Token:', data.token);
+            });
+
+            if (response.success) {
+                const data = await response.data;
+                localStorage.setItem('token', data.token);
+                router.push('/');
             } else {
-                // Login failed, do something with the error
-                console.log('Error:', data);
+                console.log('Error:', response.description);
             }
-        })
-        .catch((error) => {
+        } catch (error) {
             console.error('Error:', error);
+        } finally {
             setIsSubmitting(false);
-        });
+        }
     }
 
     return (
@@ -87,7 +83,7 @@ export const LoginForm = () => {
                     </Form.Message>
                 </Form.Field>
                 <Form.Submit asChild>
-                    <Button label="Se Connecter" className="mt-6 mx-auto w-full outline-2 outline-offset-2 outline-primary-600 focus-visible:outline font-normal" />
+                    <Button disabled={isSubmitting} label="Se Connecter" className="mt-6 mx-auto w-full outline-2 outline-offset-2 outline-primary-600 focus-visible:outline font-normal" />
                 </Form.Submit>
             </Form.Root>
         </div>
