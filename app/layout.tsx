@@ -1,12 +1,14 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import { GeistSans } from 'geist/font/sans';
-import { cn } from "@/lib/utils";
+import React from "react"
+import type { Metadata } from "next"
+import "./globals.css"
+import { GeistSans } from 'geist/font/sans'
+import { cn } from "@/app/lib/utils"
+
 
 export const metadata: Metadata = {
   title: "Juro | Assistant Juriste",
   description: "Je suis Juro. Votre assistant juriste, je réponds à toutes vos questions sur le Droit congolais",
-};
+}
 
 export default function RootLayout({
   children,
@@ -19,5 +21,5 @@ export default function RootLayout({
         {children}
       </body>
     </html>
-  );
+  )
 }

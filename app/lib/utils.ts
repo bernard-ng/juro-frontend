@@ -1,6 +1,7 @@
-import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
-import React from "react";
+import React from "react"
+import { clsx, type ClassValue } from "clsx"
+import { twMerge } from "tailwind-merge"
+
 
 /**
  * Tailwind CSS classnames merge.
@@ -10,7 +11,7 @@ import React from "react";
  * @example cn("text-red-500", "text-center", "text-cyan-500") // => "text-center text-cyan-500"
  */
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+  return twMerge(clsx(inputs))
 }
 
 /**
@@ -24,5 +25,5 @@ export function cn(...inputs: ClassValue[]) {
 export function cloneElement(element: React.ReactElement, classNames: string) {
   return React.cloneElement(element, {
     className: cn(element.props.className, classNames)
-  });
+  })
 }

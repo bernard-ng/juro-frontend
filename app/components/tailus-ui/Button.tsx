@@ -15,10 +15,10 @@ import {
   softTrailingIconButton,
   trailingIconButton,
   button
-} from "@tailus/themer-button";
-import {cva, VariantProps} from 'class-variance-authority';
-import { cn } from 'lib/utils';
-import React from "react";
+} from "@tailus/themer-button"
+import {cva, VariantProps} from 'class-variance-authority'
+import { cn } from '@/app/lib/utils'
+import React from "react"
 
 const variantsMap = {
   solid: {
@@ -41,7 +41,7 @@ const variantsMap = {
     leading: outlinedLeadingIconButton,
     trailing: outlinedTrailingIconButton,
   }
-};
+}
 
 const simpleButtonVariants = {
   solid: button,
@@ -60,7 +60,7 @@ const colorsMap = {
   info: 'info',
   gray: 'gray',
   neutral: 'neutral',
-};
+}
 
 const sizesMap = {
   xs: 'xs',
@@ -68,7 +68,7 @@ const sizesMap = {
   md: 'md',
   lg: 'lg',
   xl: 'xl',
-};
+}
 
 const buttonVariants = cva([''], {
   variants: {
@@ -81,13 +81,13 @@ const buttonVariants = cva([''], {
     colorVariant: 'primary',
     size: 'md',
   },
-});
+})
 
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement | HTMLAnchorElement>, VariantProps<typeof buttonVariants> {
-  disabled?: boolean;
-  label?: string;
-  icon?: 'only' | 'leading' | 'trailing';
-  href?: string;
+  disabled?: boolean
+  label?: string
+  icon?: 'only' | 'leading' | 'trailing'
+  href?: string
 }
 
 export const Button = React.forwardRef<
@@ -106,16 +106,16 @@ export const Button = React.forwardRef<
     ...props
   }, ref) => {
 
-  const buttonUtilities = simpleButtonVariants[variant!][colorVariant!]?.[size!];
+  const buttonUtilities = simpleButtonVariants[variant!][colorVariant!]?.[size!]
   const iconButtons = icon && variantsMap[variant!][icon][colorVariant!][size!]
 
-  const classes = icon ? cn(iconButtons, className) : cn(buttonUtilities, className);
-  const Component = href ? 'a' : 'button';
+  const classes = icon ? cn(iconButtons, className) : cn(buttonUtilities, className)
+  const Component = href ? 'a' : 'button'
 
   const cloneElement = (element: React.ReactElement, classNames: string) => {
     return React.cloneElement(element, {
       className: cn(element.props.className, classNames),
-    });
+    })
   }
 
   return (
@@ -129,9 +129,9 @@ export const Button = React.forwardRef<
       {icon === 'leading' && <span>{label}</span>}
     </Component>
   )
-});
+})
 
-Button.displayName = 'Button';
+Button.displayName = 'Button'
 
 Button.defaultProps = {
   variant: "solid",
