@@ -5,9 +5,10 @@ import {
   softVariant, 
   softGradientVariant, 
   mixedVariant 
-} from '@tailus/themer-card';
-import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from 'lib/utils';
+} from '@tailus/themer-card'
+import { cva, type VariantProps } from 'class-variance-authority'
+import { cn } from '@/app/lib/utils'
+import React from "react"
 
 const paddingVariants = {
   0: 'p-0',
@@ -23,7 +24,7 @@ const paddingVariants = {
   10: 'p-10',
   11: 'p-11',
   12: 'p-12',
-};
+}
 
 const variantMap = {
   outlined: card,
@@ -32,7 +33,7 @@ const variantMap = {
   elevatedGradient: elevatedGradientVariant.outer,
   soft: softVariant,
   softGradient: softGradientVariant.outer
-};
+}
 
 const cardVariants = cva([''], {
   variants: {
@@ -42,7 +43,7 @@ const cardVariants = cva([''], {
   defaultVariants: {
     variant: 'soft',
   },
-});
+})
 
 const innerCard = cva([''], {
   variants: {
@@ -52,7 +53,7 @@ const innerCard = cva([''], {
     },
     padding: paddingVariants,
   },
-});
+})
 
 export interface InnerProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof innerCard> {}
 
@@ -62,7 +63,7 @@ const InnerCard: React.FC<InnerProps> = ({
   children,
   ...props
 }) => {
-  const classes = cn(innerCard({ variant, padding }));
+  const classes = cn(innerCard({ variant, padding }))
   return (
     
         <div className={classes} {...props}>
@@ -80,8 +81,8 @@ export const Card: React.FC<CardProps> = ({
   children,
   ...props
 }) => {
-  const innerClass = variant === 'softGradient' ? 'innerSoft' : variant === 'elevatedGradient' ? 'innerElevated': null;
-  const classes = cn(cardVariants({ variant, padding, className }));
+  const innerClass = variant === 'softGradient' ? 'innerSoft' : variant === 'elevatedGradient' ? 'innerElevated': null
+  const classes = cn(cardVariants({ variant, padding, className }))
   const innerGradient = cn(cardVariants({variant, className}))
   return (
     <>
@@ -98,7 +99,7 @@ export const Card: React.FC<CardProps> = ({
         </div>
       )}
     </>
-  );
-};
+  )
+}
 
-export default Card;
+export default Card

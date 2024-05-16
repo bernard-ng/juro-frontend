@@ -1,26 +1,29 @@
 {
-  "name": "ng-bot",
+  "name": "juro",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3001",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-form": "^0.0.3",
     "@tailus/themer": "^0.0.5",
     "@tailus/themer-button": "^0.0.7",
     "@tailus/themer-card": "^0.0.1",
+    "@tailus/themer-form": "^0.0.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "framer-motion": "^11.0.24",
     "geist": "^1.2.2",
     "lucide-react": "^0.363.0",
-    "next": "14.1.4",
-    "react": "^18",
-    "react-dom": "^18",
-    "tailwind-merge": "^2.2.2"
+    "next": "canary",
+    "react": "canary",
+    "react-dom": "canary",
+    "tailwind-merge": "^2.2.2",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^20",

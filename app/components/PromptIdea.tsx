@@ -1,8 +1,10 @@
-import { Lightbulb } from "lucide-react";
-import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@/lib/utils";
-import { elevatedVariant } from "@tailus/themer-card";
-import CheckIcon from "./utilities/CheckIcon";
+import React from "react"
+import { Lightbulb } from "lucide-react"
+import { cva, type VariantProps } from "class-variance-authority"
+import { elevatedVariant } from "@tailus/themer-card"
+
+import CheckIcon from "./utilities/CheckIcon"
+import { cn } from "@/app/lib/utils"
 
 const promptIdeaVariants = cva("flex flex-col justify-between h-full p-[--card-padding] rounded-[calc(var(--card-border-radius)-0.25rem)] bg-gradient-to-b from-transparent dark:to-transparent dark:text-gray-200", {
     variants: {
@@ -23,9 +25,9 @@ const promptIdeaVariants = cva("flex flex-col justify-between h-full p-[--card-p
 })
 
 export interface PromptIdeaProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof promptIdeaVariants> {
-    value: string;
-    isActive: boolean;
-    previewValue: string;
+    value: string
+    isActive: boolean
+    previewValue: string
 }
 
 export const PromptIdea: React.FC<PromptIdeaProps> = ({

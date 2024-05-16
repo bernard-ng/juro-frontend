@@ -1,22 +1,23 @@
 "use client";
-import Image from "next/image";
-import { useState, useContext, useEffect } from "react";
-import Card from "@/components/tailus-ui/Card";
-import { Button } from "@/components/tailus-ui/Button";
-import { Paperclip, X } from "lucide-react";
-import { softIconButton } from "@tailus/themer-button";
-import { cn } from "@/lib/utils";
-import { IdeaContext } from "@/lib/contexts";
+import React, { useState, useContext, useEffect } from "react"
+import { Paperclip, X } from "lucide-react"
+import { softIconButton } from "@tailus/themer-button"
+import Image from "next/image"
+
+import Card from "@/app/components/tailus-ui/Card"
+import { Button } from "@/app/components/tailus-ui/Button"
+import { cn } from "@/app/lib/utils"
+import { IdeaContext } from "@/app/lib/contexts"
 
 const PromptInput = () => {
-    const {idea} = useContext(IdeaContext);
-    const [imageSrc, setImageSrc] = useState('');
-    const [promptValue, setPromptValue] = useState(idea);
+    const {idea} = useContext(IdeaContext)
+    const [imageSrc, setImageSrc] = useState('')
+    const [promptValue, setPromptValue] = useState(idea)
 
     const updateInputHeight = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         e.target.style.height = 'auto';
         e.target.style.height = `${e.target.scrollHeight}px`;
-        setPromptValue(e.target.value);
+        setPromptValue(e.target.value)
     }
 
     useEffect(() => {
@@ -32,11 +33,11 @@ const PromptInput = () => {
         } else {
             console.error('No file selected');
         }
-    };
+    }
 
     const handleRemoveImage = () => {
         setImageSrc('');
-    };
+    }
 
     const isOnlySpaces = (str:string) => {
         return str.trim() === '';
@@ -51,7 +52,7 @@ const PromptInput = () => {
                         <textarea
                             onChange={updateInputHeight}
                             className={cn("min-h-6 flex h-full w-full mb-1 max-h-56 resize-none bg-transparent outline-none transition-[height] placeholder-gray-500 text-gray-950 dark:text-white")}
-                            placeholder="Entrer le prompt"
+                            placeholder="Poser une question..."
                             name="prompt"
                             id="prompt"
                             rows={1}
@@ -101,4 +102,4 @@ const PromptInput = () => {
     )
 }
 
-export default PromptInput;
+export default PromptInput

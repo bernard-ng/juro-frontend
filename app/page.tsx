@@ -1,7 +1,9 @@
+import React from "react";
 import Image from 'next/image'
-import { PromptIdeas } from "@/components/PromptIdeas";
-import PromptInput from "@/components/PromptInput";
-import IdeaProvider from "./idea-provider";
+
+import { PromptIdeas } from "@/app/components/PromptIdeas"
+import PromptInput from "@/app/components/PromptInput"
+import IdeaProvider from "./idea-provider"
 
 export default function Home() {
   return (
@@ -9,7 +11,7 @@ export default function Home() {
       <IdeaProvider>
         <div className="max-w-2xl w-full mx-auto">
           <div className="size-fit">
-            <Image src="/icon.svg" alt="Juro Logo" className="size-9" />
+            <Image src="/icon.svg" width={10} height={10} alt="Juro Logo" className="size-9" />
           </div>
           <div className="mt-6">
             <h1 className="text-2xl text-gray-950 dark:text-white">
@@ -20,5 +22,5 @@ export default function Home() {
         <PromptInput />
       </IdeaProvider>
     </main>
-  );
+  )
 }

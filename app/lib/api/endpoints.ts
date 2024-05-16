@@ -1,8 +1,14 @@
-const BASE_URL = "http://api.juro.cd/api";
+const BASE_URL: string = process.env.API_URL || 'http://localhost:8000'
 
+/**
+ * API endpoints
+ *
+ * For more information
+ * @see http://api.juro.cd/api/doc.html
+ */
 const Endpoints = {
     me: `${BASE_URL}/me`,
-    login: `${BASE_URL}/login`,
+    login: `${BASE_URL}/login_check`,
     register: `${BASE_URL}/register`,
     chats: `${BASE_URL}/chats`,
     chat: `${BASE_URL}/chat`,
@@ -10,4 +16,4 @@ const Endpoints = {
     suggestedPrompts: `${BASE_URL}/suggested_prompts`,
 }
 
-export default Endpoints;
+export default Endpoints

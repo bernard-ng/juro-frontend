@@ -1,7 +1,8 @@
 "use client"
-import { PromptIdea } from "@/components/PromptIdea";
-import { useState, useContext } from "react";
-import { IdeaContext } from "@/lib/contexts";
+import React, { useState, useContext } from "react"
+
+import { PromptIdea } from "@/app/components/PromptIdea"
+import { IdeaContext } from "@/app/lib/contexts"
 
 type Idea = {
     value: string;
@@ -32,21 +33,21 @@ const ideas: Idea[] = [
 ]
 
 export const PromptIdeas = () => {
-    const [activeIndex, setActiveIndex] = useState(-1);
-    const { setIdea } = useContext(IdeaContext);
+    const [activeIndex, setActiveIndex] = useState(-1)
+    const { setIdea } = useContext(IdeaContext)
 
     const handleIdeaClick = (index: number, idea: string) => {
-        const textarea = document.getElementById('prompt') as HTMLTextAreaElement;
+        const textarea = document.getElementById('prompt') as HTMLTextAreaElement
 
         if (activeIndex === index) {
-            setActiveIndex(-1); 
-            setIdea(''); 
-            textarea.value = ''; 
+            setActiveIndex(-1)
+            setIdea('')
+            textarea.value = ''
         } else {
-            setActiveIndex(index); 
-            setIdea(idea);
-            textarea.value = ''; 
-            textarea.value = idea; 
+            setActiveIndex(index)
+            setIdea(idea)
+            textarea.value = ''
+            textarea.value = idea
         }
     }
     return (
@@ -62,5 +63,5 @@ export const PromptIdeas = () => {
                 />
             ))}
         </div>
-    );
+    )
 }

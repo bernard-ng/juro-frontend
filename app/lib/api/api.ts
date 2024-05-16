@@ -7,14 +7,14 @@ import {
     Response,
     SuggestedPrompt,
     User
-} from "lib/api/model";
-import Endpoints from "lib/api/endpoints";
+} from "@/app/lib/api/model"
+import Endpoints from "@/app/lib/api/endpoints"
 
 /**
  * the token should be stored in the local storage
  * after a successful login and removed after a logout
  */
-const token = localStorage.getItem('token');
+const token = "test"
 const headers = new Headers({
     'Content-Type': 'application/json',
     'Accept': 'application/json',
@@ -29,6 +29,14 @@ export async function login(payload: LoginRequestData): Promise<Response<LoginRe
         method: 'POST',
         body: JSON.stringify(payload),
         headers
+    })
+}
+
+export async function getProfile(): Promise<Response<User>> {
+    console.log(token)
+    return fetchApi<User>(Endpoints.me, {
+        method: 'GET',
+        headers: headersWithAuthorization
     })
 }
 
@@ -115,11 +123,12 @@ async function fetchApi<T>(url: string, options: RequestInit): Promise<Response<
             description: response.statusText
         } as Response<T>
     } catch (e: any) {
+        console.log(e)
         return {
             data: null,
             success: false,
-            code: e.response.code,
-            description: e.response.message
+            code: e.response.code || 500,
+            description: e.response.message || e.message
         } as Response<T>
     }
 }
