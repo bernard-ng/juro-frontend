@@ -5,6 +5,7 @@ import Link from "next/link";
 import React, { useState, useRef, useEffect } from "react";
 import { usePathname } from 'next/navigation'
 import { cn } from "@/lib/utils";
+import { toast } from 'sonner'
 
 export type ChatLinkProps = {
     href: string;
@@ -17,16 +18,17 @@ export const ChatLink: React.FC<ChatLinkProps> = ({
 }) =>{
     const [isRenaming, setIsRenaming] = useState(false);
     const linkRef = useRef<HTMLAnchorElement>(null);
+    const saveButtonRef = useRef<HTMLButtonElement>(null);
     const pathname = usePathname()
 
     useEffect(() => {
 
-        if (isRenaming && linkRef.current) {
+        if (isRenaming && linkRef.current && saveButtonRef.current) {
             linkRef?.current.focus();
         }
 
         const handleClickOutside = (e: MouseEvent) => {
-            if (linkRef.current && !linkRef.current.contains(e.target as Node) && (e.target as Element).id !== 'saveButton') {
+            if (linkRef.current && !linkRef.current.contains(e.target as Node) && saveButtonRef.current && !saveButtonRef.current.contains(e.target as Node)) {
                 setIsRenaming(false);
             }
         }
@@ -61,11 +63,26 @@ export const ChatLink: React.FC<ChatLinkProps> = ({
                         pathname.includes(href) && "bg-gray-100 dark:bg-gray-900"
                     )
                 }>
-                <span>{title}</span>
+                {title}
             </Link>
             {
                 isRenaming &&
-                <Button id="saveButton" icon="only" size="sm" variant="soft" colorVariant="primary" label="Enregistrer" className="absolute inset-y-0.5 right-0.5 dark:bg-gray-800 dark:text-primary-400">
+                <Button
+                    ref={saveButtonRef}
+                    icon="only"
+                    size="sm"
+                    variant="soft"
+                    colorVariant="primary"
+                    label="Enregistrer"
+                    onClick={
+                        () => {
+                            console.log(isRenaming);
+                            toast.error('Error message');
+                            toast.success('Le chat a été renommé avec succès !'); 
+                        }
+                    }
+                    className="z-10 absolute inset-y-0.5 right-0.5 dark:bg-gray-800 dark:text-primary-400"
+                >
                     <svg className="!size-5" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 20 20"><path fill="currentColor" d="M3 5a2 2 0 0 1 2-2h1v3.5A1.5 1.5 0 0 0 7.5 8h4A1.5 1.5 0 0 0 13 6.5V3h.379a2 2 0 0 1 1.414.586l1.621 1.621A2 2 0 0 1 17 6.621V15a2 2 0 0 1-2 2v-5.5a1.5 1.5 0 0 0-1.5-1.5h-7A1.5 1.5 0 0 0 5 11.5V17a2 2 0 0 1-2-2zm9-2H7v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5zm2 8.5V17H6v-5.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5"></path></svg>
                 </Button>
             }

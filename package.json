@@ -24,6 +24,7 @@
     "next": "canary",
     "react": "canary",
     "react-dom": "canary",
+    "sonner": "^1.4.41",
     "tailwind-merge": "^2.2.2",
     "zod": "^3.23.8"
   },
