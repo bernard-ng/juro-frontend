@@ -17,7 +17,7 @@ import {
   button
 } from "@tailus/themer-button"
 import {cva, VariantProps} from 'class-variance-authority'
-import { cn } from '@/app/lib/utils'
+import { cn } from '@lib/utils'
 import React from "react"
 
 const variantsMap = {

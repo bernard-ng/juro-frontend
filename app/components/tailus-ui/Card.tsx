@@ -7,7 +7,7 @@ import {
   mixedVariant 
 } from '@tailus/themer-card'
 import { cva, type VariantProps } from 'class-variance-authority'
-import { cn } from '@/app/lib/utils'
+import { cn } from '@lib/utils'
 import React from "react"
 
 const paddingVariants = {
