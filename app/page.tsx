@@ -1,8 +1,8 @@
 import React from "react";
 import Image from 'next/image'
 
-import { PromptIdeas } from "@/app/components/PromptIdeas"
-import PromptInput from "@/app/components/PromptInput"
+import { PromptIdeas } from "@/components/PromptIdeas"
+import PromptInput from "@/components/PromptInput"
 import IdeaProvider from "./idea-provider"
 
 export default function Home() {

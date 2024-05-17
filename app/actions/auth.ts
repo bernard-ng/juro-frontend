@@ -1,9 +1,9 @@
 'use server'
-import {LoginFormSchema, LoginFormState, RegisterFormSchema, RegisterFormState} from "@/app/lib/defintions"
-import {LoginRequestData, LoginResponseData, RegisterRequestData, Response, User} from "@/app/lib/api/model"
-import {login as apiLogin, register as apiRegister} from "@/app/lib/api/api"
+import {LoginFormSchema, LoginFormState, RegisterFormSchema, RegisterFormState} from "@lib/defintions"
+import {LoginRequestData, LoginResponseData, RegisterRequestData, Response, User} from "@lib/api/model"
+import {login as apiLogin, register as apiRegister} from "@lib/api/api"
 import {redirect} from "next/navigation"
-import {createSession, deleteSession} from "@/app/lib/session"
+import {createSession, deleteSession} from "@lib/session"
 
 export async function register(state: RegisterFormState,  formData: FormData): Promise<RegisterFormState> {
     const validatedFields = RegisterFormSchema.safeParse({

@@ -4,10 +4,10 @@ import { Paperclip, X } from "lucide-react"
 import { softIconButton } from "@tailus/themer-button"
 import Image from "next/image"
 
-import Card from "@/app/components/tailus-ui/Card"
-import { Button } from "@/app/components/tailus-ui/Button"
-import { cn } from "@/app/lib/utils"
-import { IdeaContext } from "@/app/lib/contexts"
+import Card from "@tailus-ui/Card"
+import { Button } from "@tailus-ui/Button"
+import { cn } from "@lib/utils"
+import { IdeaContext } from "@lib/contexts"
 
 const PromptInput = () => {
     const {idea} = useContext(IdeaContext)

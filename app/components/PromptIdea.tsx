@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { elevatedVariant } from "@tailus/themer-card"
 
 import CheckIcon from "./utilities/CheckIcon"
-import { cn } from "@/app/lib/utils"
+import { cn } from "@lib/utils"
 
 const promptIdeaVariants = cva("flex flex-col justify-between h-full p-[--card-padding] rounded-[calc(var(--card-border-radius)-0.25rem)] bg-gradient-to-b from-transparent dark:to-transparent dark:text-gray-200", {
     variants: {

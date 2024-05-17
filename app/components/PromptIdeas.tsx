@@ -1,8 +1,8 @@
 "use client"
 import React, { useState, useContext } from "react"
 
-import { PromptIdea } from "@/app/components/PromptIdea"
-import { IdeaContext } from "@/app/lib/contexts"
+import { PromptIdea } from "@/components/PromptIdea"
+import { IdeaContext } from "@lib/contexts"
 
 type Idea = {
     value: string;
