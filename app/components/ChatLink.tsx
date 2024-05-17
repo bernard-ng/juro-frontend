@@ -38,7 +38,14 @@ export const ChatLink: React.FC<ChatLinkProps> = ({
     }, [isRenaming]);
 
     return (
-        <div className="relative group rounded-[--btn-border-radius] hover:bg-gray-100 h-9 dark:hover:bg-gray-900 has-[[data-state='open']]:bg-gray-100 dark:has-[[data-state='open']]:bg-gray-900">
+        <div
+            className={
+                cn(
+                    "relative group rounded-[--btn-border-radius] hover:bg-gray-100 h-9 dark:hover:bg-gray-900 has-[[data-state='open']]:bg-gray-100 dark:has-[[data-state='open']]:bg-gray-900",
+                    isRenaming && "z-10"
+                )
+            }
+        >
             <Link
                 ref={linkRef}
                 href={href}
