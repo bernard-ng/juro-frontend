@@ -9,7 +9,7 @@ export default function Home() {
       <IdeaProvider>
         <div className="max-w-2xl w-full mx-auto">
           <div className="size-fit">
-            <Image src="/icon.svg" alt="Juro Logo" className="size-9" />
+            <Image src="/icon.svg" alt="Juro Logo" className="size-9" width={36} height={36} />
           </div>
           <div className="mt-6">
             <h1 className="text-2xl text-gray-950 dark:text-white">
