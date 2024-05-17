@@ -49,26 +49,10 @@ const PromptInput = () => {
             <div aria-hidden className="h-12 bg-gradient-to-b from-transparent to-gray-50 dark:to-gray-950" />
             <div className="pb-6 bg-gray-50 dark:bg-gray-950">
                 <form action="" method="post">
-                    <Card variant="mixed" className="p-4 pb-2 max-w-2xl mx-auto justify-between dark:bg-gray-900"> 
-                        <textarea
-                            onChange={updateInputHeight}
-                            className={cn("min-h-6 flex h-full w-full mb-4 max-h-56 resize-none bg-transparent outline-none transition-[height] placeholder-gray-500 text-gray-950 dark:text-white")}
-                            placeholder="Entrer le prompt"
-                            name="prompt"
-                            id="prompt"
-                            rows={1}
-                        >
-                            
-                        </textarea>
-                        <div className="-mx-2 flex gap-2 justify-between">
-                            <div className="flex gap-2">
-                                <label className={cn(ghostIconButton.gray.md, "dark:hover:bg-gray-800 cursor-pointer focus-within:outline-2")} htmlFor="prompt-file">
-                                    <Paperclip className={outlinedIconButton.icon.md} />
-                                    <input id="prompt-file" className="size-0" type="file" accept=".pdf" onChange={handleImageChange} />
-                                </label>
-                                {
+                    <Card variant="soft" className="bg-gray-200 rounded-[2rem] p-2.5 max-w-2xl mx-auto justify-between"> 
+                        {
                                     fileSrc && (
-                                        <div className="h-full relative py-1 px-2 flex items-center size-max rounded-xl bg-gray-100 dark:bg-gray-800">
+                                        <div className="ml-12 mb-2 group h-full relative py-2 px-2 flex items-center size-max rounded-xl bg-gray-100 dark:bg-gray-800">
                                             <div className="flex gap-2 items-center max-w-36 sm:max-w-64 overflow-hidden">
                                                 <div className="*:size-5 flex size-fit text-gray-600 dark:text-white">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
@@ -84,7 +68,7 @@ const PromptInput = () => {
                                                 size="xs"
                                                 variant="outlined"
                                                 colorVariant="gray"
-                                                className="absolute -top-1 -right-1 size-4 [border-width:1px] before:from-white rounded-full bg-white shadow dark:bg-gray-700 dark:hover:bg-gray-800"
+                                                className="scale-75 opacity-0 transition-all absolute -top-1 -right-1 size-4 [border-width:1px] before:from-white rounded-full bg-white shadow dark:bg-gray-700 dark:hover:bg-gray-800 group-hover:scale-100 group-hover:opacity-100"
                                                 onClick={handleRemoveImage}
                                             >
                                                 <X className="!size-2.5" />
@@ -92,7 +76,19 @@ const PromptInput = () => {
                                         </div>
                                     )
                                 }
-                            </div>
+                        <div className="grid gap-3 items-end [grid-template-columns:auto_1fr_auto]">
+                            <label className={cn(ghostIconButton.gray.md, "dark:hover:bg-gray-800 cursor-pointer focus-within:outline-2")} htmlFor="prompt-file">
+                                <Paperclip className={outlinedIconButton.icon.md} />
+                                <input id="prompt-file" className="size-0" type="file" accept=".pdf" onChange={handleImageChange} />
+                            </label>
+                            <textarea
+                                onChange={updateInputHeight}
+                                className={cn("min-h-9 py-1.5 flex h-full w-full max-h-56 resize-none bg-transparent outline-none transition-[height] placeholder-gray-500 text-gray-950 dark:text-white")}
+                                placeholder="Entrer le prompt"
+                                name="prompt"
+                                id="prompt"
+                                rows={1}
+                            />
                             <Button disabled={ isOnlySpaces(promptValue) } colorVariant="primary" variant="solid" size="md" icon="only" label="Send" className="disabled:bg-transparent dark:disabled:bg-transparent">
                                 <svg className="translate-x-0.5" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32">
                                     <path fill="currentColor" d="M4.176 2.164C2.988 1.57 1.671 2.7 2.077 3.965l2.858 8.883a1 1 0 0 0 .787.68l11.869 1.979c.557.093.557.893 0 .986L5.723 18.471a1 1 0 0 0-.788.68l-2.858 8.886c-.407 1.265.91 2.395 2.099 1.801L29.17 17.343c1.106-.553 1.106-2.13 0-2.684z" />
