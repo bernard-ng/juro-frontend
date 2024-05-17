@@ -18,7 +18,7 @@ export default function Login() {
             <Card className="max-w-md w-full p-0 bg-gray-50" variant="mixed">
                 <Card className="-m-px">
                     <div className="mx-auto max-w-[18rem] w-full py-4">
-                        <Link href="/" className="w-fit mx-auto block mb-6">
+                        <Link href="/public" className="w-fit mx-auto block mb-6">
                             <Image src="/icon.svg" width={10} height={10} alt="Juro Logo" className="size-9"/>
                         </Link>
                         <h1 className="text-center text-2xl font-semibold text-gray-950 dark:text-white">Connectez-vous</h1>
