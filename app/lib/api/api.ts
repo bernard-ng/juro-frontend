@@ -7,8 +7,8 @@ import {
     Response,
     SuggestedPrompt,
     User
-} from "@/app/lib/api/model"
-import Endpoints from "@/app/lib/api/endpoints"
+} from "@lib/api/model"
+import Endpoints from "@lib/api/endpoints"
 
 /**
  * the token should be stored in the local storage
