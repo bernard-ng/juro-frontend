@@ -1,8 +1,12 @@
 "use client"
 import Link from "next/link";
-import { Info, PlusIcon, Settings} from "lucide-react";
+import { ChevronLeft, ChevronRight, Info, MenuIcon, PlusIcon, Settings} from "lucide-react";
 import { ChatLink, ChatLinkProps } from "./ChatLink";
 import { ghostLeadingIconButton } from "@tailus/themer-button";
+import Image from 'next/image'
+import { useState } from "react";
+import { Button } from "./tailus-ui/Button";
+import { cn } from "@/lib/utils";
 
 const links: ChatLinkProps[] = [
   {
@@ -20,8 +24,19 @@ const links: ChatLinkProps[] = [
 ];
 
 export function Sidebar() {
+
+  const [isOpen, setIsOpen] = useState(false)
+
   return (
-    <aside className="fixed flex flex-col left-0 px-4 pt-20 pb-6 inset-y-0 border-r w-64 bg-white dark:bg-gray-900 dark:border-transparent">
+    <aside className={cn("fixed flex flex-col left-0 px-4 duration-300 ease-in-out -translate-x-64 py-6 inset-y-0 border-r w-64 bg-white dark:bg-gray-900 dark:border-transparent darK:shadow-md dark:shadow-gray-950", isOpen && "translate-x-0")}>
+        <div className="mb-6">
+          <Button
+            className={cn("delay-75", !isOpen && "translate-x-64")} icon="only" label="Ouvrir la barre" size="md" variant="ghost" colorVariant="gray"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+              <MenuIcon />
+          </Button>
+        </div>
         <Link href="/" className="h-9 rounded-[--btn-border-radius] flex gap-3 items-center font-normal px-3 text-sm border shadow-sm shadow-gray-950/5 text-gray-950 hover:bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-900 dark:text-white dark:border-gray-800">
             <PlusIcon className="size-4" />
             <span>Nouveau chat</span>
