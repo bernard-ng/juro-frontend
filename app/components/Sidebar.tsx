@@ -20,7 +20,7 @@ const links: ChatLinkProps[] = [
 
 export function Sidebar() {
   return (
-    <aside className="fixed left-0 px-4 pt-20 inset-y-0 border-r w-64 bg-white dark:bg-gray-950 dark:border-gray-800">
+    <aside className="fixed left-0 px-4 pt-20 inset-y-0 border-r w-64 bg-white dark:bg-gray-900 dark:border-transparent">
         <Link href="/" className="h-9 rounded-[--btn-border-radius] flex gap-3 items-center font-normal px-3 text-sm border shadow-sm shadow-gray-950/5 text-gray-950 hover:bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-900 dark:text-white dark:border-gray-800">
             <PlusIcon className="size-4" />
             <span>Nouveau chat</span>

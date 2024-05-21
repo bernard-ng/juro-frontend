@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
-      <body className={cn(GeistSans.className, "bg-gray-50 dark:bg-gray-950 selection:bg-secondary-500/50 selection:text-secondary-950 dark:selection:bg-secondary-300/10 dark:selection:text-white")}>
+      <body className={cn(GeistSans.className, "bg-gray-50 dark:bg-gray-925 selection:bg-secondary-500/50 selection:text-secondary-950 dark:selection:bg-secondary-300/10 dark:selection:text-white")}>
         {children}
         <Toaster toastOptions={
           {

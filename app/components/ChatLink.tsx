@@ -28,12 +28,12 @@ export const ChatLink: React.FC<ChatLinkProps> = ({
 
     return (
         <>
-        <div className="relative group rounded-[--btn-border-radius] hover:bg-gray-100 h-9 dark:hover:bg-gray-900 has-[[data-state='open']]:bg-gray-100 dark:has-[[data-state='open']]:bg-gray-900">
+        <div className="relative group rounded-[--btn-border-radius] hover:bg-gray-100 h-9 dark:hover:bg-gray-800 has-[[data-state='open']]:bg-gray-100 dark:has-[[data-state='open']]:bg-gray-800">
             <Link
                 href={href}
                 className={cn(
                         "rounded-[--btn-border-radius] h-full w-full flex items-center px-4 text-sm text-gray-700 dark:text-gray-300 focus-visible:outline outline-2 outline-primary-600 text-nowrap",
-                        pathname.includes(href) && "bg-gray-100 dark:bg-gray-900"
+                        pathname.includes(href) && "bg-gray-100 dark:bg-gray-800"
                     )
                 }
             >
@@ -47,7 +47,7 @@ export const ChatLink: React.FC<ChatLinkProps> = ({
                         </Button>
                     </DropdownMenu.Trigger>
                     <DropdownMenu.Portal>
-                        <DropdownMenu.Content variant="soft" intent="gray" className="*:py-3 *:gap-3 dark:bg-gray-800 min-w-fit">
+                        <DropdownMenu.Content sideOffset={5} variant="soft" intent="gray" className="*:py-3 *:gap-3 dark:bg-gray-800 min-w-fit">
                             <DropdownMenu.Item onClick={() => setIsDialogOpen(true)}>
                                 <Pencil className="size-4" />
                                 Renommer

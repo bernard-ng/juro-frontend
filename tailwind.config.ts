@@ -10,6 +10,22 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        gray: {
+          "50": "#FAFAFE",
+          "100": "#F5F5F9",
+          "200": "#E7E7F0",
+          "300": "#D6D6E1",
+          "400": "#A8A8B8",
+          "500": "#6E6E81",
+          "600": "#4D4D5F",
+          "700": "#3A3A4B",
+          "800": "#1F1F31",
+          "900": "#121220",
+          "925": "#090915",
+          "950": "#02020D",
+      },
+      },
       keyframes: {
         overlayShow: {
           from: { opacity: '0' },
