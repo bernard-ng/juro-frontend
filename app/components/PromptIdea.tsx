@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { elevatedVariant } from "@tailus/themer-card"
 
 import CheckIcon from "./utilities/CheckIcon"
-import { cn } from "@/app/lib/utils"
+import { cn } from "@lib/utils"
 
 const promptIdeaVariants = cva("flex flex-col justify-between h-full p-[--card-padding] rounded-[calc(var(--card-border-radius)-0.25rem)] bg-gradient-to-b from-transparent dark:to-transparent dark:text-gray-200", {
     variants: {
@@ -42,16 +42,16 @@ export const PromptIdea: React.FC<PromptIdeaProps> = ({
     return (
         <button
             {...props}
-            className={cn(elevatedVariant, "p-1 aspect-square transition-[box-shadow,transform] hover:shadow-xl hover:shadow-gray-700/10 group dark:hover:bg-gray-800 focus-visible:outline-2 outline-gray-950 outline-offset-2 rounded-[--card-border-radius] dark:outline-white  data-[state=on]:shadow-xl data-[state=on]:shadow-gray-700/10 data-[state=on]:scale-105 dark:data-[state=on]:bg-gray-800")}
+            className={cn(elevatedVariant, "p-1 aspect-square transition-[box-shadow,transform] hover:shadow-xl hover:shadow-gray-700/10 group dark:bg-transparent dark:hover:bg-gray-900 dark:border dark:border-gray-800 focus-visible:outline-2 outline-gray-950 outline-offset-2 rounded-[--card-border-radius] dark:outline-white  data-[state=on]:shadow-xl data-[state=on]:shadow-gray-700/10 dark:data-[state=on]:shadow-none dark:data-[state=on]:bg-gray-900")}
             data-state={isActive ? "on" : "off"}
         >
-            <div className={cn(promptIdeaVariants({ intent }), className)}>
-                <div className="rounded-full size-10 flex items-center justify-center dark:!bg-gray-500/10 dark:text-white">
+            <div className={cn(promptIdeaVariants({ intent }), "dark:bg-transparent dark:group-hover:bg-gray-900 dark:group-data-[state=on]:bg-gray-900" ,className)}>
+                <div className="rounded-full size-9 flex items-center justify-center dark:!bg-gray-800 dark:text-white">
                     {
                         isActive ? <CheckIcon /> : <Lightbulb className="size-5 m-auto" />
                     }
                 </div>
-                <p className="text-left line-clamp-3">
+                <p className="text-left text-base line-clamp-3">
                     {previewValue}
                 </p>
             </div>

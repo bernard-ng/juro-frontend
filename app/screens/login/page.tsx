@@ -4,10 +4,10 @@ import { useFormStatus, useFormState } from 'react-dom'
 import Image from "next/image"
 import Link from "next/link"
 
-import Card from "@/app/components/tailus-ui/Card"
-import Form from "@/app/components/tailus-ui/Form"
-import {Button} from "@/app/components/tailus-ui/Button"
-import {login} from "@/app/actions/auth"
+import Card from "@/components/tailus-ui/Card"
+import Form from "@/components/tailus-ui/Form"
+import {Button} from "@/components/tailus-ui/Button"
+import {login} from "@/actions/auth"
 
 export default function Login() {
     const [state, action] = useFormState(login, undefined)

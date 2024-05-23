@@ -1,5 +1,5 @@
 import React from "react";
-import PromptInput from "@/app/components/PromptInput"
+import PromptInput from "@/components/PromptInput"
 
 export default function Chat({ params }: { params: { id: number } }) {
     return (

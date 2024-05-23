@@ -17,11 +17,11 @@
         "name": "next"
       }
     ],
-    "baseUrl": "./",
+    "baseUrl": "./app",
     "paths": {
       "@/*": ["./*"],
-      "tailus-ui/*": ["components/tailus-ui/*"],
-      "lib/*": ["lib/*"]
+      "@tailus-ui/*": ["components/tailus-ui/*"],
+      "@lib/*": ["lib/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

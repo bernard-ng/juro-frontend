@@ -1,7 +1,7 @@
 import React from "react"
 import { Control, Field, Label, Message, Submit, Root } from "@radix-ui/react-form"
 import { type VariantProps, cva } from "class-variance-authority"
-import { cn } from '@/app/lib/utils'
+import { cn } from '@lib/utils'
 import {
     outlinedForm as outlinedTheme,
     softForm as softTheme,
