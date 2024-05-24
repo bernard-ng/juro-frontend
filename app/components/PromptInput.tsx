@@ -6,11 +6,11 @@ import { ghostIconButton, outlinedIconButton } from "@tailus/themer-button"
 import Card from "@tailus-ui/Card"
 import { Button } from "@tailus-ui/Button"
 import { cn } from "@lib/utils"
-import { IdeaContext } from "@lib/contexts"
+import {useIdea} from "@lib/contexts/IdeaContext";
 
 const PromptInput = () => {
-    const {idea} = useContext(IdeaContext);
-    const [fileSrc, setfileSrc] = useState('');
+    const idea = useIdea();
+    const [fileSrc, setFileSrc] = useState('');
     const [promptValue, setPromptValue] = useState(idea);
     const [fileName, setFileName] = useState('');
 
@@ -30,14 +30,14 @@ const PromptInput = () => {
             const file = e.target.files[0];
             setFileName(file.name);
             const url = URL.createObjectURL(file);
-            setfileSrc(url);
+            setFileSrc(url);
         } else {
             console.error('No file selected');
         }
     };
 
     const handleRemoveImage = () => {
-        setfileSrc('');
+        setFileSrc('');
     };
 
     const isOnlySpaces = (str:string) => {
@@ -82,6 +82,7 @@ const PromptInput = () => {
                                 <input id="prompt-file" className="size-0" type="file" accept=".pdf" onChange={handleImageChange} />
                             </label>
                             <textarea
+                                autoFocus={true}
                                 onChange={updateInputHeight}
                                 className={cn("min-h-9 py-1.5 flex h-full w-full max-h-56 resize-none bg-transparent outline-none transition-[height] placeholder-gray-500 text-gray-950 dark:text-white")}
                                 placeholder="Entrer le prompt"

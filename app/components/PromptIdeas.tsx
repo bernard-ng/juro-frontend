@@ -2,7 +2,7 @@
 import React, { useState, useContext } from "react"
 
 import { PromptIdea } from "@/components/PromptIdea"
-import { IdeaContext } from "@lib/contexts"
+import {useIdeaDispatcher} from "@lib/contexts/IdeaContext";
 
 type Idea = {
     value: string;
@@ -34,7 +34,7 @@ const ideas: Idea[] = [
 
 export const PromptIdeas = () => {
     const [activeIndex, setActiveIndex] = useState(-1)
-    const { setIdea } = useContext(IdeaContext)
+    const setIdea = useIdeaDispatcher()
 
     const handleIdeaClick = (index: number, idea: string) => {
         const textarea = document.getElementById('prompt') as HTMLTextAreaElement

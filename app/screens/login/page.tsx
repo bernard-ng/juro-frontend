@@ -1,5 +1,5 @@
 'use client'
-import React from "react"
+import React, {useEffect} from "react"
 import { useFormStatus, useFormState } from 'react-dom'
 import Image from "next/image"
 import Link from "next/link"
@@ -8,10 +8,25 @@ import Card from "@/components/tailus-ui/Card"
 import Form from "@/components/tailus-ui/Form"
 import {Button} from "@/components/tailus-ui/Button"
 import {login} from "@/actions/auth"
+import {toast} from "sonner";
+import {useRouter} from "next/navigation";
 
 export default function Login() {
+    const router = useRouter()
     const [state, action] = useFormState(login, undefined)
     const { pending } = useFormStatus()
+
+    useEffect(() => {
+        if (state?.message) {
+            toast.error(state.message)
+        }
+
+        if (state?.token) {
+            localStorage.setItem('token', state.token)
+            toast.success('Connexion réussie')
+            router.push('/chat')
+        }
+    }, [router, state]);
 
     return (
         <main className="flex min-h-screen flex-col items-center justify-between p-24">

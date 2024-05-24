@@ -1,30 +1,59 @@
+'use client';
 import DropdownMenu from "@tailus-ui/DropdownMenu";
 import { Button } from "@tailus-ui/Button";
 import { EllipsisVertical, Pencil, Trash } from "lucide-react";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, {useContext, useState} from "react";
 import { usePathname } from 'next/navigation'
 import { cn } from "@/lib/utils";
 import { toast } from 'sonner'
-import AlertDialog from "./tailus-ui/AlertDialog";
-import Dialog from "./tailus-ui/Dialog";
-import { FormInput } from "./tailus-ui/Form";
+import AlertDialog from "@tailus-ui/AlertDialog";
+import Dialog from "@tailus-ui/Dialog";
+import Form from "@tailus-ui/Form";
+import {deleteChat, updateChat} from "@lib/api/api";
+import {useChats, useChatsDispatcher} from "@lib/contexts/ChatsContext";
 
 export type ChatLinkProps = {
+    id: number,
     href: string;
     title: string;
 }
 
 export const ChatLink: React.FC<ChatLinkProps> = ({
+    id,
     href,
     title
 }) => {
-
+    const pathname = usePathname()
     const [isAlertOpen, setIsAlertOpen] = useState(false)
     const [isDialogOpen, setIsDialogOpen] = useState(false)
-    const [inputValue, setInputValue] = useState(title);
+    const [renameInputValue, setRenameInputValue] = useState(title);
+    const chatsDispatcher = useChatsDispatcher();
 
-    const pathname = usePathname()
+    const handleUpdateChat = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+
+        const response = await updateChat(id, renameInputValue)
+        if (response.success) {
+            setIsDialogOpen(false)
+            chatsDispatcher({type: 'UPDATE_CHAT', payload: {id, href, title: renameInputValue}})
+            toast.success(`Chat renommé avec succès à ${renameInputValue}`)
+        } else {
+            toast.error("Désolé, une erreur s'est produite. Veuillez réessayer.")
+        }
+    }
+
+    const handleDeleteChat = async () => {
+        const response = await deleteChat(id)
+
+        if (response.success) {
+            setIsAlertOpen(false)
+            chatsDispatcher({type: 'DELETE_CHAT', payload: {id, href, title}})
+            toast.success('Chat supprimé avec succès')
+        } else {
+            toast.error("Désolé, une erreur s'est produite. Veuillez réessayer.")
+        }
+    }
 
     return (
         <>
@@ -81,7 +110,7 @@ export const ChatLink: React.FC<ChatLinkProps> = ({
                             <Button className="w-1/2 justify-center rounded-none" size="lg" variant="ghost" colorVariant="gray" label="Annuler" />
                         </AlertDialog.Cancel>
                         <AlertDialog.Action asChild>
-                            <Button className="w-1/2 justify-center rounded-none" size="lg" variant="ghost" colorVariant="danger" label="Supprimer" onClick={() => toast.success('Chat supprimé avec succès')} />
+                            <Button className="w-1/2 justify-center rounded-none" size="lg" variant="ghost" colorVariant="danger" label="Supprimer" onClick={handleDeleteChat} />
                         </AlertDialog.Action>
                     </AlertDialog.Actions>
                 </AlertDialog.Content>
@@ -94,42 +123,33 @@ export const ChatLink: React.FC<ChatLinkProps> = ({
                 <Dialog.Content className="p-6 dark:bg-gray-800">
                     <Dialog.Title className="text-lg">Renommer le Chat</Dialog.Title>
                     
-                        <form
-                            className="mt-4"
-                            id="renameChatForm"
-                            onSubmit={(e) => {
-                                e.preventDefault();
-                            }}
-                        >
-                        <FormInput
-                            type="text"
-                            value={inputValue}
-                            onChange={(e) => setInputValue(e.target.value)}
-                            variant="outlined"
-                            size="lg"
-                            className="hover:border-gray-300 dark:border-gray-700 dark:hover:border-gray-600"
-                        />  
-                    </form>
-                    
-                    <Dialog.Actions className="gap-0">
-                        <Dialog.Close asChild>
-                            <Button label="Annuler" variant="ghost" colorVariant="primary" size="md"/>
-                        </Dialog.Close>
-                        <Button
-                            type="submit"
-                            form="renameChatForm"
-                            label="Renommer"
-                            variant="ghost"
-                            colorVariant="primary"
-                            size="md"
-                            disabled={inputValue.trim() === title.trim()}
-                            onClick={() => {
-                                setIsDialogOpen(false);
-                                toast.success(`Chat renommé à : "${inputValue}"`);
-                                setInputValue(title);
-                            }}
-                        />
-                    </Dialog.Actions>
+                    <Form.Root className="mt-4" onSubmit={handleUpdateChat}>
+                        <Form.Field name="name">
+                            <Form.Input
+                                type="text"
+                                value={renameInputValue}
+                                name="name"
+                                variant="outlined"
+                                size="lg"
+                                className="hover:border-gray-300 dark:border-gray-700 dark:hover:border-gray-600"
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRenameInputValue(e.target.value)}
+                            />
+                        </Form.Field>
+
+                        <Dialog.Actions className="gap-0">
+                            <Dialog.Close asChild>
+                                <Button label="Annuler" variant="ghost" colorVariant="primary" size="md"/>
+                            </Dialog.Close>
+                            <Button
+                                type="submit"
+                                label="Renommer"
+                                variant="ghost"
+                                colorVariant="primary"
+                                size="md"
+                                disabled={renameInputValue.trim() === title.trim()}
+                            />
+                        </Dialog.Actions>
+                    </Form.Root>
                 </Dialog.Content>
             </Dialog.Portal>
         </Dialog.Root>

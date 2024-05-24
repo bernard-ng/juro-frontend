@@ -1,4 +1,4 @@
-const BASE_URL: string = process.env.API_URL || 'http://localhost:8000'
+const BASE_URL: string = process.env.API_URL || 'http://localhost:8000/api'
 
 /**
  * API endpoints
