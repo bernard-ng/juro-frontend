@@ -7,9 +7,9 @@ import {useEffect, useState} from "react";
 import {Button} from "@tailus-ui/Button";
 import {cn} from "@/lib/utils";
 import {useChats, useChatsDispatcher} from "@lib/contexts/ChatsContext";
-import useSWR, {SWRResponse} from "swr";
+import useSWR, {SWRResponse, preload} from "swr";
 import {getChats} from "@lib/api/api";
-import {useBearerToken} from "@lib/contexts/AuthContext";
+import {useBearerToken} from "@lib/contexts/AuthContext"
 
 export function Sidebar() {
     const [isOpen, setIsOpen] = useState<boolean>(true)
