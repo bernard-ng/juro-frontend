@@ -12,7 +12,7 @@ const Endpoints = {
     register: `${BASE_URL}/register`,
     chats: `${BASE_URL}/chats`,
     chat: `${BASE_URL}/chat`,
-    messages: `${BASE_URL}/messages`,
+    messages: `${BASE_URL}/chats/{chatId}/messages`,
     suggestedPrompts: `${BASE_URL}/suggested_prompts`,
 }
 

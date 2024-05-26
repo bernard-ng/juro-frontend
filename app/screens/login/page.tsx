@@ -10,11 +10,13 @@ import {Button} from "@/components/tailus-ui/Button"
 import {login} from "@/actions/auth"
 import {toast} from "sonner";
 import {useRouter} from "next/navigation";
+import {useBearerTokenDispatcher} from "@lib/contexts/AuthContext";
 
 export default function Login() {
     const router = useRouter()
     const [state, action] = useFormState(login, undefined)
     const { pending } = useFormStatus()
+    const setToken = useBearerTokenDispatcher()
 
     useEffect(() => {
         if (state?.message) {
@@ -22,7 +24,7 @@ export default function Login() {
         }
 
         if (state?.token) {
-            localStorage.setItem('token', state.token)
+            setToken(state.token)
             toast.success('Connexion réussie')
             router.push('/chat')
         }

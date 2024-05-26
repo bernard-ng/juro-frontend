@@ -26,9 +26,9 @@ export default function Home() {
                                 <span className="text-gray-600 dark:text-gray-400">Votre assistant juriste, je réponds à toutes vos questions sur le Droit congolais</span>
                             </h1>
                         </div>
-                        <PromptIdeas />
+                        <PromptIdeas/>
                     </div>
-                    <PromptInput />
+                    <PromptInput/>
                 </IdeaProvider>
             </div>
         </main>

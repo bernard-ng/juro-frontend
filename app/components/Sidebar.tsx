@@ -8,12 +8,12 @@ import {Button} from "@tailus-ui/Button";
 import {cn} from "@/lib/utils";
 import {useChats, useChatsDispatcher} from "@lib/contexts/ChatsContext";
 import useSWR, {SWRResponse} from "swr";
-import Endpoints from "@lib/api/endpoints";
 import {getChats} from "@lib/api/api";
+import {useBearerToken} from "@lib/contexts/AuthContext";
 
 export function Sidebar() {
-    const [isOpen, setIsOpen] = useState(true)
-    const {data}: SWRResponse<ChatLinkProps[], Error, boolean> = useSWR(Endpoints.chats, getChats)
+    const [isOpen, setIsOpen] = useState<boolean>(true)
+    const {data}: SWRResponse<ChatLinkProps[]> = useSWR(useBearerToken(), getChats)
     const chats = useChats()
     const chatsDispatcher = useChatsDispatcher()
 
@@ -46,7 +46,7 @@ export function Sidebar() {
                 <div className="space-y-px mt-2 max-h-96 overflow-y-auto">
                     {
                         chats.map((link: ChatLinkProps, index: number) => (
-                            <ChatLink key={index} id={link.id} href={link.href} title={link.title}/>
+                            <ChatLink key={index} id={link.id} href={link.href} title={link.title} />
                         ))
                     }
                 </div>

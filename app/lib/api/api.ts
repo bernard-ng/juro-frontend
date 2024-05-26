@@ -1,4 +1,3 @@
-'use client'
 import {
     Chat,
     Message,
@@ -23,32 +22,26 @@ export function getRequestHeaders(token: string|undefined = undefined){
     return new Headers(headers)
 }
 
-/**
- * the token should be stored in the local storage
- * after a successful login and removed after a logout
- */
-const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MTY0ODczNzQsImV4cCI6MTcxNjU3Mzc3NCwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoibmdhbmR1YmVybmFyZEBnbWFpbC5jb20ifQ.Ix-PCa6NJRb2xaLr3xDM6XAKxkW4EUTfiXSvcfUDWMpxPLwuGAVppAMqP4iUL-57IoC71EdAdNurs5aNbirRXc9BAEqwFs05gULxTQsXOZ5SCpN-vqIPbSn5KZOlBSmZ7Vtk4RcDF0hkt-zGXRRbmQjmre39m4wuHawCsNXYPZDJKwdBhrIq4_jiPgzgvANsM_TRG4mLKWaznMY8BuYKYeIT7CmuFNs3B55MaQZ8bPWw5OZUQqsmqyvcewYV7M-n4NgR90R8G3zDRDG9-p84oT-MCVep96iigU3uFp5Wc8Y7-5TLNCdjpyB_LM3tVdJ8RBBKwDXxNPwIIdmIh5Ejiw"
-const headers = getRequestHeaders(token as string)
-
-export async function getProfile(): Promise<Response<User>> {
+export async function getProfile(token: string|undefined = undefined): Promise<Response<User>> {
     console.log(token)
     return fetchApi<User>(Endpoints.me, {
         method: 'GET',
-        headers
+        headers: getRequestHeaders(token)
     })
 }
 
 
-export async function createChat(name: string | null = null): Promise<Response<Chat>> {
+export async function createChat(name: string | null = null, token: string|undefined = undefined): Promise<Response<Chat>> {
     return fetchApi<Chat>(Endpoints.chats, {
         method: 'POST',
         body: name !== null ? JSON.stringify({name}) : undefined,
-        headers
+        headers: getRequestHeaders(token)
     })
 }
 
-export async function updateChat(id: number, name: string): Promise<Response<Chat>> {
+export async function updateChat(id: number, name: string, token: string|undefined = undefined): Promise<Response<Chat>> {
     const endpoint = `${Endpoints.chats}/${id}`
+    const headers = getRequestHeaders(token)
     headers.set('Content-Type', 'application/merge-patch+json');
 
     return fetchApi<Chat>(endpoint, {
@@ -58,10 +51,10 @@ export async function updateChat(id: number, name: string): Promise<Response<Cha
     })
 }
 
-export async function getChats(): Promise<ChatLinkProps[]> {
+export async function getChats(token: string|undefined = undefined): Promise<ChatLinkProps[]> {
     const response = await fetchApi<Chat[]>(Endpoints.chats, {
         method: 'GET',
-        headers
+        headers: getRequestHeaders(token)
     })
 
     if (response.success) {
@@ -69,7 +62,7 @@ export async function getChats(): Promise<ChatLinkProps[]> {
             return {
                 id: chat.id,
                 href: `/chat/${chat.id}`,
-                title: chat.name
+                title: chat.name,
             } as ChatLinkProps
         })
     } else {
@@ -77,43 +70,49 @@ export async function getChats(): Promise<ChatLinkProps[]> {
     }
 }
 
-export async function getChat(id: number): Promise<Response<Chat>> {
+export async function getChat(id: number, token: string|undefined = undefined): Promise<Response<Chat>> {
     const endpoint = `${Endpoints.chats}/${id}`
     return fetchApi<Chat>(endpoint, {
         method: 'GET',
-        headers
+        headers: getRequestHeaders(token)
     })
 }
 
-export async function deleteChat(id: number): Promise<Response<null>> {
+export async function deleteChat(id: number, token: string|undefined = undefined): Promise<Response<null>> {
     const endpoint = `${Endpoints.chats}/${id}`
     return fetchApi<null>(endpoint, {
         method: 'DELETE',
-        headers
+        headers: getRequestHeaders(token)
     }, true)
 }
 
-export async function getMessages(chatId: number): Promise<Response<Message[]>> {
-    const endpoint = Endpoints.messages.replace('{chatId}', chatId.toString())
-    return fetchApi<Message[]>(endpoint, {
+export async function getMessages(chatId: number, token: string|undefined = undefined): Promise<Message[]> {
+    const endpoint = `${Endpoints.chats}/${chatId}/messages`
+    const response =  await fetchApi<Message[]>(endpoint, {
         method: 'GET',
-        headers
+        headers: getRequestHeaders(token)
     })
+
+    if (response.success) {
+        return response.data
+    } else {
+        throw new Error("Une erreur s'est produite lors de la récupération des messages, veuillez réactualiser la page.")
+    }
 }
 
-export async function sendMessage(chatId: number, message: string): Promise<Response<Chat>> {
+export async function sendMessage(chatId: number, message: string, token: string|undefined = undefined): Promise<Response<Chat>> {
     const endpoint = Endpoints.messages.replace('{chatId}', chatId.toString())
     return fetchApi<Chat>(endpoint, {
         method: 'POST',
         body: JSON.stringify({message}),
-        headers
+        headers: getRequestHeaders(token)
     })
 }
 
-export async function getSuggestedPrompts(): Promise<Response<SuggestedPrompt[]>> {
+export async function getSuggestedPrompts(token: string|undefined = undefined): Promise<Response<SuggestedPrompt[]>> {
     return fetchApi<SuggestedPrompt[]>(Endpoints.suggestedPrompts, {
         method: 'GET',
-        headers
+        headers: getRequestHeaders(token)
     })
 }
 

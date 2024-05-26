@@ -12,6 +12,7 @@ import Dialog from "@tailus-ui/Dialog";
 import Form from "@tailus-ui/Form";
 import {deleteChat, updateChat} from "@lib/api/api";
 import {useChats, useChatsDispatcher} from "@lib/contexts/ChatsContext";
+import {useBearerToken} from "@lib/contexts/AuthContext";
 
 export type ChatLinkProps = {
     id: number,
@@ -24,6 +25,7 @@ export const ChatLink: React.FC<ChatLinkProps> = ({
     href,
     title
 }) => {
+    const token = useBearerToken()
     const pathname = usePathname()
     const [isAlertOpen, setIsAlertOpen] = useState(false)
     const [isDialogOpen, setIsDialogOpen] = useState(false)
@@ -33,7 +35,7 @@ export const ChatLink: React.FC<ChatLinkProps> = ({
     const handleUpdateChat = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
-        const response = await updateChat(id, renameInputValue)
+        const response = await updateChat(id, renameInputValue, token)
         if (response.success) {
             setIsDialogOpen(false)
             chatsDispatcher({type: 'UPDATE_CHAT', payload: {id, href, title: renameInputValue}})
@@ -44,7 +46,7 @@ export const ChatLink: React.FC<ChatLinkProps> = ({
     }
 
     const handleDeleteChat = async () => {
-        const response = await deleteChat(id)
+        const response = await deleteChat(id, token)
 
         if (response.success) {
             setIsAlertOpen(false)
@@ -62,7 +64,7 @@ export const ChatLink: React.FC<ChatLinkProps> = ({
                 href={href}
                 className={cn(
                         "rounded-[--btn-border-radius] h-full w-full flex items-center px-4 text-sm text-gray-700 dark:text-gray-300 focus-visible:outline outline-2 outline-primary-600 text-nowrap",
-                        pathname.includes(href) && "bg-gray-100 dark:bg-gray-800"
+                        (pathname == href) && "bg-gray-100 dark:bg-gray-800"
                     )
                 }
             >
