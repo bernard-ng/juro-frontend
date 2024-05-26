@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useContext, useEffect } from "react"
+import React, {useState, useContext, useEffect, FormEvent} from "react"
 import { Paperclip, X } from "lucide-react"
 import { ghostIconButton, outlinedIconButton } from "@tailus/themer-button"
 
@@ -8,11 +8,21 @@ import { Button } from "@tailus-ui/Button"
 import { cn } from "@lib/utils"
 import {useIdea} from "@lib/contexts/IdeaContext";
 
-const PromptInput = () => {
+interface PromptInputProps {
+    handleSubmit: (prompt: string) => void
+}
+
+const PromptInput = ({handleSubmit}: PromptInputProps) => {
     const idea = useIdea();
     const [fileSrc, setFileSrc] = useState('');
     const [promptValue, setPromptValue] = useState(idea);
     const [fileName, setFileName] = useState('');
+
+    const handlePromptSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        setPromptValue("")
+        handleSubmit(promptValue)
+    }
 
     const updateInputHeight = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         e.target.style.height = 'auto';
@@ -48,7 +58,7 @@ const PromptInput = () => {
         <div className="fixed bottom-0 inset-x-4 md:inset-x-0 mx-auto w-full max-w-3xl">
             <div aria-hidden className="h-12 bg-gradient-to-b from-transparent to-gray-50 dark:to-gray-925" />
             <div className="pb-6 bg-gray-50 dark:bg-gray-925">
-                <form action="" method="post">
+                <form onSubmit={handlePromptSubmit} method="post">
                     <Card variant="soft" className="bg-gray-200 rounded-[2rem] p-2.5 max-w-2xl mx-auto justify-between"> 
                         {
                             fileSrc && (

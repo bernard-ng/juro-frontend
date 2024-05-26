@@ -4,7 +4,7 @@ import { Button } from "@tailus-ui/Button";
 import { EllipsisVertical, Pencil, Trash } from "lucide-react";
 import Link from "next/link";
 import React, {useContext, useState} from "react";
-import { usePathname } from 'next/navigation'
+import {usePathname, useRouter} from 'next/navigation'
 import { cn } from "@/lib/utils";
 import { toast } from 'sonner'
 import AlertDialog from "@tailus-ui/AlertDialog";
@@ -26,6 +26,7 @@ export const ChatLink: React.FC<ChatLinkProps> = ({
     title
 }) => {
     const token = useBearerToken()
+    const router = useRouter()
     const pathname = usePathname()
     const [isAlertOpen, setIsAlertOpen] = useState(false)
     const [isDialogOpen, setIsDialogOpen] = useState(false)
@@ -38,6 +39,7 @@ export const ChatLink: React.FC<ChatLinkProps> = ({
         const response = await updateChat(id, renameInputValue, token)
         if (response.success) {
             setIsDialogOpen(false)
+            setRenameInputValue(renameInputValue)
             chatsDispatcher({type: 'UPDATE_CHAT', payload: {id, href, title: renameInputValue}})
             toast.success(`Chat renommé avec succès à ${renameInputValue}`)
         } else {
@@ -52,6 +54,10 @@ export const ChatLink: React.FC<ChatLinkProps> = ({
             setIsAlertOpen(false)
             chatsDispatcher({type: 'DELETE_CHAT', payload: {id, href, title}})
             toast.success('Chat supprimé avec succès')
+
+            if (pathname == href) {
+                router.replace('/chat')
+            }
         } else {
             toast.error("Désolé, une erreur s'est produite. Veuillez réessayer.")
         }

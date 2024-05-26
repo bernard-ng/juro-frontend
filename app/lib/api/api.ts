@@ -100,9 +100,9 @@ export async function getMessages(chatId: number, token: string|undefined = unde
     }
 }
 
-export async function sendMessage(chatId: number, message: string, token: string|undefined = undefined): Promise<Response<Chat>> {
+export async function sendMessage(chatId: number, message: string, token: string|undefined = undefined): Promise<Response<Message>> {
     const endpoint = Endpoints.messages.replace('{chatId}', chatId.toString())
-    return fetchApi<Chat>(endpoint, {
+    return fetchApi<Message>(endpoint, {
         method: 'POST',
         body: JSON.stringify({message}),
         headers: getRequestHeaders(token)

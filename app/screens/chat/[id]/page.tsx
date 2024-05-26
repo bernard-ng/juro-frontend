@@ -4,16 +4,17 @@ import {Sidebar} from "@/components/Sidebar";
 import {ChatsProvider, useChatsDispatcher} from "@lib/contexts/ChatsContext";
 import useSWR from "swr";
 import {useBearerToken} from "@lib/contexts/AuthContext";
-import {getMessages} from "@lib/api/api";
+import {getMessages, sendMessage} from "@lib/api/api";
 import {Message} from "@lib/api/model";
-import {useEffect, useReducer, useState} from "react";
+import {useEffect, useReducer} from "react";
 import {messagesReducer} from "@lib/reducers/messages";
+import {toast} from "sonner";
 
 export default function Chat({ params }: { params: { id: number } }) {
+    const bearerToken = useBearerToken()
     const [messages, messagesDispatcher] = useReducer(messagesReducer, [])
-    const setChatLinkActive = useChatsDispatcher()
     const {data} = useSWR<Message[]>(
-        [params.id, useBearerToken()],
+        [params.id, bearerToken],
         ([chatId, token]) => getMessages(chatId, token as string)
     )
 
@@ -23,6 +24,21 @@ export default function Chat({ params }: { params: { id: number } }) {
         }
     }, [data]);
 
+    const handleSubmit = async (prompt: string) => {
+        messagesDispatcher({
+            type: 'ADD_MESSAGE',
+            payload: {sender: 'user', message: prompt, created_at: (new Date()).toISOString()}
+        })
+
+        const response = await sendMessage(params.id, prompt, bearerToken)
+
+        if (response.success) {
+            messagesDispatcher({type: 'ADD_MESSAGE', payload: response.data})
+        } else {
+            toast.error("Désolé une erreur est survenue, veuillez réessayer !")
+        }
+    }
+
     return (
         <main className="flex min-h-screen flex-col items-center justify-between p-24">
             <div>
@@ -30,16 +46,15 @@ export default function Chat({ params }: { params: { id: number } }) {
                     <Sidebar/>
                 </ChatsProvider>
                 <div className="max-w-2xl w-full mx-auto">
-                    <div className="dark:text-white">My chat: {params.id}</div>
                     {
-                        messages.map((message: Message) => (
-                            <div key={message.id}>
+                        messages.map((message: Message, index: number) => (
+                            <div key={index}>
                                 <p className="dark:text-white">{message.sender} : {message.message}, {message.created_at}</p>
                             </div>
                         ))
                     }
                 </div>
-                <PromptInput/>
+                <PromptInput handleSubmit={prompt => handleSubmit(prompt)} />
             </div>
         </main>
     )
