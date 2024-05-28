@@ -17,6 +17,7 @@ const DialogOverlay = React.forwardRef<
     className={cn(dialogTheme.overlay, className)}
   />
 ));
+DialogOverlay.displayName = 'DialogOverlay'
 
 const DialogContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
@@ -28,6 +29,7 @@ const DialogContent = React.forwardRef<
     className={cn(dialogTheme.content, className)}
   />
 ));
+DialogContent.displayName = 'DialogContent'
 
 const DialogTitle = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Title>,
@@ -39,6 +41,7 @@ const DialogTitle = React.forwardRef<
     className={cn(dialogTheme.title, className)}
   />
 ));
+DialogTitle.displayName = 'DialogTitle'
 
 const DialogDescription = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Description>,
@@ -50,6 +53,7 @@ const DialogDescription = React.forwardRef<
     className={cn(dialogTheme.description, className)}
   />
 ));
+DialogDescription.displayName = 'DialogDescription'
 
 const DialogActions = React.forwardRef<
   React.ElementRef<"div">,
@@ -61,7 +65,7 @@ const DialogActions = React.forwardRef<
     className={cn(dialogTheme.actions, className)}
   />
 ));
-
+DialogActions.displayName = 'DialogActions'
 type DialogCloseButtonProps = React.ComponentProps<typeof Button>;
 
 const DialogCloseButton: React.FC<DialogCloseButtonProps> = ({className, ...props}) => (
@@ -73,7 +77,7 @@ const DialogCloseButton: React.FC<DialogCloseButtonProps> = ({className, ...prop
 
 const DialogClose = DialogPrimitive.Close;
 
-export default {
+const Dialog = {
   Root: DialogRoot,
   Trigger: DialogTrigger,
   Portal: DialogPortal,
@@ -85,6 +89,7 @@ export default {
   CloseButton: DialogCloseButton,
   Close: DialogClose,
 }
+export default Dialog;
 
 export {
   DialogRoot,

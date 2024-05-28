@@ -28,7 +28,7 @@ export default function Login() {
             toast.success('Connexion réussie')
             router.push('/chat')
         }
-    }, [router, state]);
+    }, [router, setToken, state]);
 
     return (
         <main className="flex min-h-screen flex-col items-center justify-between p-24">

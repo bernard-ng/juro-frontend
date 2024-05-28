@@ -47,6 +47,7 @@ const DropdownMenuContent = React.forwardRef<
     </MenuContext.Provider>
   );
 });
+DropdownMenuContent.displayName = 'DropdownMenuContent';
 
 const DropdownMenuArrow = DropdownMenuPrimitive.Arrow;
 
@@ -72,6 +73,7 @@ const DropdownMenuItem = React.forwardRef<
     />
   );
 });
+DropdownMenuItem.displayName = 'DropdownMenuItem';
 
 const DropdownMenuGroup = DropdownMenuPrimitive.Group;
 const DropdownMenuLabel = DropdownMenuPrimitive.Label;
@@ -99,6 +101,7 @@ const DropdownMenuSeparator = React.forwardRef<
     />
   );
 });
+DropdownMenuSeparator.displayName = 'DropdownMenuSeparator';
 
 const DropdownMenuSub = DropdownMenuPrimitive.Sub;
 
@@ -122,6 +125,7 @@ const DropdownMenuSubTrigger = React.forwardRef<
     />
   );
 });
+DropdownMenuSubTrigger.displayName = 'DropdownMenuSubTrigger';
 
 const DropdownMenuSubContent = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.SubContent>,
@@ -142,6 +146,7 @@ const DropdownMenuSubContent = React.forwardRef<
     </MenuContext.Provider>
   );
 });
+DropdownMenuSubContent.displayName = 'DropdownMenuSubContent';
 
 interface DropdownMenuIconProps extends DropdownMenuContentProps {
   className?: string,
@@ -175,6 +180,7 @@ const DropdownMenuRightIcon = React.forwardRef<
     />
   );
 });
+DropdownMenuRightIcon.displayName = 'DropdownMenuRightIcon';
 
 const DropdownMenu = {
   Root: DropdownMenuRoot,

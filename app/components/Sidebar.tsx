@@ -21,7 +21,7 @@ export function Sidebar() {
         if (data) {
             chatsDispatcher({type: 'SET_CHATS', payload: data})
         }
-    }, [data]);
+    }, [chatsDispatcher, data]);
 
     return (
         <aside

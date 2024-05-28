@@ -36,6 +36,7 @@ const AlertDialogOverlay = React.forwardRef<
     />
   )
 })
+AlertDialogOverlay.displayName = 'AlertDialogOverlay'
 
 const AlertDialogContent = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Content>,
@@ -51,6 +52,7 @@ const AlertDialogContent = React.forwardRef<
     />
   )
 });
+AlertDialogContent.displayName = 'AlertDialogContent'
 
 const AlertDialogTitle = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Title>,
@@ -66,6 +68,7 @@ const AlertDialogTitle = React.forwardRef<
     />
   )
 });
+AlertDialogTitle.displayName = 'AlertDialogTitle'
 
 const AlertDialogDescription = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Description>,
@@ -81,6 +84,7 @@ const AlertDialogDescription = React.forwardRef<
     />
   )
 });
+AlertDialogDescription.displayName = 'AlertDialogDescription'
 
 const AlertDialogCancel = AlertDialogPrimitive.Cancel;
 const AlertDialogAction = AlertDialogPrimitive.Action;
@@ -99,6 +103,7 @@ const AlertDialogActions = React.forwardRef<
     />
   )
 });
+AlertDialogActions.displayName = 'AlertDialogActions'
 
 const AlertDialogImageContainer = React.forwardRef<
   React.ElementRef<"div">,
@@ -114,6 +119,7 @@ const AlertDialogImageContainer = React.forwardRef<
     />
   )
 });
+AlertDialogImageContainer.displayName = 'AlertDialogImageContainer'
 
 interface AlertDialogImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   className?: string,
@@ -122,6 +128,7 @@ interface AlertDialogImageProps extends React.ImgHTMLAttributes<HTMLImageElement
 const AlertDialogImage: React.FC<AlertDialogImageProps> = ({className, ...props}) => {
   const variant = React.useContext(VariantContext);
   const theme = variant === "centred" ? centredTheme : defaultTheme;
+  // eslint-disable-next-line @next/next/no-img-element
   return <img {...props} className={cn(theme.image, className)} alt={props.alt}/>;
 };
 
