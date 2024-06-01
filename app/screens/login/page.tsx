@@ -11,11 +11,26 @@ import {login} from "@/actions/auth"
 import {toast} from "sonner";
 import {useRouter} from "next/navigation";
 import {useBearerTokenDispatcher} from "@lib/contexts/AuthContext";
+import {ThreeDots} from "react-loader-spinner";
+
+/**
+ * @see https://react.dev/reference/react-dom/hooks/useFormStatus
+ */
+const FormSubmit = () => {
+    const {pending} = useFormStatus()
+
+    return (
+        <Form.Submit asChild disabled={pending}>
+            <Button className="w-full" size="lg">
+                {pending ? <ThreeDots visible={true} height="40" width="40" color="#fff" radius="2" ariaLabel="three-dots-loading"/> : <span>Se connecter</span> }
+            </Button>
+        </Form.Submit>
+    )
+}
 
 export default function Login() {
     const router = useRouter()
     const [state, action] = useFormState(login, undefined)
-    const { pending } = useFormStatus()
     const setToken = useBearerTokenDispatcher()
 
     useEffect(() => {
@@ -72,9 +87,7 @@ export default function Login() {
                                     {state?.errors?.password && <Form.Message intent="danger">{state.errors.password}</Form.Message>}
                                 </Form.Field>
                             </div>
-                            <Form.Submit asChild>
-                                <Button disabled={pending} label={pending ? 'Connexion...' : "Se connecter"} className="w-full" size="lg" />
-                            </Form.Submit>
+                            <FormSubmit />
                         </Form.Root>
                     </div>
                 </Card>

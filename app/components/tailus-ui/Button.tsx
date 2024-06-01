@@ -122,13 +122,14 @@ export const Button = React.forwardRef<
 
     return (
         <Component href={href} className={classes} {...props} disabled={disabled} ref={ref as any}>
-            {!icon && <span>{label}</span>}
+            {(!icon && label !== undefined) && <span>{label}</span>}
             {icon === 'only' && <span className="sr-only">{label}</span>}
             {icon === 'trailing' && <span>{label}</span>}
             {icon &&
                 cloneElement(children as React.ReactElement, variantsMap[variant!][icon!].icon[size!])
             }
             {icon === 'leading' && <span>{label}</span>}
+            {(!icon && label === undefined) && children}
         </Component>
     )
 })

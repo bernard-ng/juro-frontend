@@ -1,5 +1,5 @@
 'use client'
-import React from "react"
+import React, {useEffect, useState} from "react"
 import { useFormStatus, useFormState } from 'react-dom'
 import Image from "next/image"
 import Link from "next/link"
@@ -8,10 +8,32 @@ import Card from "@/components/tailus-ui/Card"
 import Form from "@/components/tailus-ui/Form"
 import {Button} from "@/components/tailus-ui/Button"
 import {register} from "@/actions/auth"
+import {toast} from "sonner";
+import {ThreeDots} from "react-loader-spinner";
+
+/**
+ * @see https://react.dev/reference/react-dom/hooks/useFormStatus
+ */
+const FormSubmit = () => {
+    const {pending} = useFormStatus()
+
+    return (
+        <Form.Submit asChild disabled={pending}>
+            <Button className="w-full" size="lg">
+                {pending ? <ThreeDots visible={true} height="40" width="40" color="#fff" radius="2" ariaLabel="three-dots-loading"/> : <span>S&#39;inscrire</span> }
+            </Button>
+        </Form.Submit>
+    )
+}
 
 export default function Register() {
     const [state, action] = useFormState(register, undefined)
-    const { pending } = useFormStatus()
+
+    useEffect(() => {
+        if (state?.message) {
+            toast.error(state.message)
+        }
+    }, [state]);
 
     return (
         <main className="flex min-h-screen flex-col items-center justify-between p-12">
@@ -68,9 +90,7 @@ export default function Register() {
                                     {state?.errors?.password && <Form.Message intent="danger">{state.errors.password.join(', ')}</Form.Message>}
                                 </Form.Field>
                             </div>
-                            <Form.Submit asChild>
-                                <Button disabled={pending} label={pending ? 'Inscription...' : "S'inscrire"} className="w-full" size="lg" />
-                            </Form.Submit>
+                            <FormSubmit />
                         </Form.Root>
                     </div>
                 </Card>
