@@ -55,7 +55,7 @@ const PromptInput = ({handleSubmit}: PromptInputProps) => {
     }
 
     return (
-        <div className="fixed bottom-0 inset-x-4 md:inset-x-0 mx-auto w-full max-w-3xl">
+        <div className="fixed bottom-0 inset-x-0 px-3 md:px-0 mx-auto w-full max-w-3xl z-40">
             <div aria-hidden className="h-12 bg-gradient-to-b from-transparent to-gray-50 dark:to-gray-925" />
             <div className="pb-2 bg-gray-50 dark:bg-gray-925">
                 <form onSubmit={handlePromptSubmit} method="post">
@@ -103,7 +103,7 @@ const PromptInput = ({handleSubmit}: PromptInputProps) => {
                                 autoFocus={true}
                                 onChange={updateInputHeight}
                                 className={cn("min-h-9 py-1.5 flex h-full w-full max-h-56 resize-none bg-transparent outline-none transition-[height] placeholder-gray-500 text-gray-950 dark:text-white")}
-                                placeholder="Entrer le prompt"
+                                placeholder="Votre question..."
                                 name="prompt"
                                 id="prompt"
                                 rows={1}

@@ -51,7 +51,7 @@ export const PromptIdeas = () => {
         }
     }
     return (
-        <div className="mt-12 grid grid-cols-3 gap-4">
+        <div className="mt-12 grid grid-cols-2 md:grid-cols-3 gap-4">
             {ideas.map((idea, index) => (
                 <PromptIdea
                     key={index}

@@ -51,7 +51,7 @@ export const PromptIdea: React.FC<PromptIdeaProps> = ({
                         isActive ? <CheckIcon /> : <Lightbulb className="size-5 m-auto" />
                     }
                 </div>
-                <p className="text-left text-base line-clamp-3">
+                <p className="text-left text-sm md:text-base line-clamp-3">
                     {previewValue}
                 </p>
             </div>

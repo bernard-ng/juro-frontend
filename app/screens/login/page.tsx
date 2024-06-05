@@ -46,7 +46,7 @@ export default function Login() {
     }, [router, setToken, state]);
 
     return (
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
+        <main className="flex min-h-screen flex-col items-center justify-between p-6 md:p-12">
             <Card className="max-w-md w-full p-0 bg-gray-50" variant="mixed">
                 <Card className="-m-px">
                     <div className="mx-auto max-w-[18rem] w-full py-4">

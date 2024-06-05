@@ -50,12 +50,12 @@ export default function Chat({ params }: { params: { id: number } }) {
     }
 
     return (
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
+        <main className="flex min-h-screen flex-col items-center justify-between p-3 pt-24 md:p-24">
             <div>
                 <ChatsProvider>
                     <Sidebar/>
                 </ChatsProvider>
-                <div className="max-w-2xl w-full mx-auto">
+                <div className="max-w-2xl w-full mx-auto mb-24 md:mb-12">
                     {
                         messages.map((message: Message, index: number) => (<ChatBubble message={message} key={index} />))
                     }

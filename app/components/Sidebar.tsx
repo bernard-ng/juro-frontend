@@ -24,8 +24,7 @@ export function Sidebar() {
     }, [chatsDispatcher, data]);
 
     return (
-        <aside
-            className={cn("fixed flex flex-col left-0 px-4 duration-300 ease-in-out -translate-x-64 py-6 inset-y-0 border-r w-64 bg-white dark:bg-gray-900 dark:border-transparent darK:shadow-md dark:shadow-gray-950", isOpen && "translate-x-0")}>
+        <aside className={cn("fixed flex flex-col left-0 px-4 duration-300 ease-in-out -translate-x-64 py-6 inset-y-0 border-r w-64 bg-white dark:bg-gray-900 dark:border-transparent darK:shadow-md dark:shadow-gray-950 z-50", isOpen && "translate-x-0")}>
             <div className="mb-6">
                 <Button
                     className={cn("delay-75", !isOpen && "translate-x-64")} icon="only" label="Ouvrir la barre"
