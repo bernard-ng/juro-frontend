@@ -68,7 +68,7 @@ export async function login(state: LoginFormState,  formData: FormData): Promise
 
     if (!response.success) {
         return {
-            message: "Vos identifiants sont invalides, veuillez réessayer.",
+            message: "Identifiants sont invalides ou compte non vérifié, veuillez réessayer.",
         }
     } else {
         await createSession(response.data.token);
