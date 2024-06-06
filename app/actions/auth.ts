@@ -7,8 +7,6 @@ import {createSession, deleteSession} from "@lib/session"
 import Endpoints from "@lib/api/endpoints";
 import {SafeParseReturnType} from "zod";
 
-const headers = getRequestHeaders()
-
 type RegisterFormData = {
     name: string,
     email: string,
@@ -21,7 +19,7 @@ type LoginFormData = {
 }
 
 export async function register(state: RegisterFormState,  formData: FormData): Promise<RegisterFormState> {
-    const validatedFields: SafeParseReturnType<RegisterFormData, RegisterFormData> = RegisterFormSchema.safeParse({
+    const validatedFields = RegisterFormSchema.safeParse({
         name: formData.get('name'),
         email: formData.get('email'),
         password: formData.get('password'),
@@ -36,7 +34,9 @@ export async function register(state: RegisterFormState,  formData: FormData): P
     const response: Response<User> = await fetchApi<User>(Endpoints.register, {
         method: 'POST',
         body: JSON.stringify(validatedFields.data as RegisterRequestData),
-        headers
+        headers: {
+            'Content-Type': 'application/json'
+        }
     })
 
     if (!response.success) {
@@ -63,10 +63,18 @@ export async function login(state: LoginFormState,  formData: FormData): Promise
     const response: Response<LoginResponseData> = await fetchApi<LoginResponseData>(Endpoints.login, {
         method: 'POST',
         body: JSON.stringify(validatedFields.data as LoginRequestData),
-        headers
+        headers: {
+            'Content-Type': 'application/json'
+        }
     })
 
     if (!response.success) {
+        if (response.code == 401) {
+            return {
+                message: response.description,
+            }
+        }
+
         return {
             message: "Identifiants sont invalides ou compte non vérifié, veuillez réessayer.",
         }

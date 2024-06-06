@@ -8,12 +8,15 @@ import {
 import Endpoints from "@lib/api/endpoints"
 import {ChatLinkProps} from "@/components/ChatLink";
 
+type ApiHeaders = {
+    'Content-Type': string,
+    'Authorization'?: string
+}
+
 export function getRequestHeaders(token: string|undefined = undefined){
     const headers = {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': 'false'
-    }
+        'Content-Type': 'application/json'
+    } as ApiHeaders
 
     if (token !== undefined) {
         headers['Authorization'] = `Bearer ${token}`
@@ -120,6 +123,7 @@ export async function fetchApi<T>(url: string, options: RequestInit, noContent =
     try {
         const response = await fetch(url, options)
         const data = noContent ? null as T : await response.json() as T;
+        console.log(data, options)
         return {
             data,
             success: response.ok,
@@ -131,8 +135,8 @@ export async function fetchApi<T>(url: string, options: RequestInit, noContent =
         return {
             data: null,
             success: false,
-            code: e.response.code || 500,
-            description: e.response.message || e.message
+            code: e.response?.code || 500,
+            description: e.response?.message || e.message
         } as Response<T>
     }
 }
