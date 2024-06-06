@@ -1,7 +1,7 @@
 'use server'
 import {LoginFormSchema, LoginFormState, RegisterFormSchema, RegisterFormState} from "@lib/defintions"
 import {LoginRequestData, LoginResponseData, RegisterRequestData, Response, User} from "@lib/api/model"
-import {fetchApi, getRequestHeaders} from "@lib/api/api"
+import {fetchApi} from "@lib/api/api"
 import {redirect} from "next/navigation"
 import {createSession, deleteSession} from "@lib/session"
 import Endpoints from "@lib/api/endpoints";
@@ -28,6 +28,7 @@ export async function register(state: RegisterFormState,  formData: FormData): P
     if (!validatedFields.success) {
         return {
             errors: validatedFields.error.flatten().fieldErrors,
+            success: false
         }
     }
 
@@ -42,10 +43,14 @@ export async function register(state: RegisterFormState,  formData: FormData): P
     if (!response.success) {
         return {
             message: "Désolé une erreur s'est produite, veuillez réessayer.",
+            success: false
         }
     }
 
-    redirect('/login')
+    return {
+        message: "Votre compte a été créé avec succès, veuillez vérifier votre boîte de réception pour activer votre compte.",
+        success: true
+    }
 }
 
 export async function login(state: LoginFormState,  formData: FormData): Promise<LoginFormState> {
@@ -69,14 +74,8 @@ export async function login(state: LoginFormState,  formData: FormData): Promise
     })
 
     if (!response.success) {
-        if (response.code == 401) {
-            return {
-                message: response.description,
-            }
-        }
-
         return {
-            message: "Identifiants sont invalides ou compte non vérifié, veuillez réessayer.",
+            message: "Identifiants sont invalides ou compte non vérifié !",
         }
     } else {
         await createSession(response.data.token);

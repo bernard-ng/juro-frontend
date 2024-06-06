@@ -20,8 +20,11 @@ const PromptInput = ({handleSubmit}: PromptInputProps) => {
 
     const handlePromptSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        setPromptValue("")
+        const input = e.currentTarget.querySelector('textarea') as HTMLTextAreaElement
+        input.value = ""
+        input.blur()
         handleSubmit(promptValue)
+        setPromptValue("")
     }
 
     const updateInputHeight = (e: React.ChangeEvent<HTMLTextAreaElement>) => {

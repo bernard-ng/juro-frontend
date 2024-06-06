@@ -28,6 +28,7 @@ export type RegisterFormState =
         password?: string[]
     }
     message?: string
+    success?: boolean
 }
     | undefined
 

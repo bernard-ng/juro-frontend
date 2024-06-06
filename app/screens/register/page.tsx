@@ -10,6 +10,7 @@ import {Button} from "@/components/tailus-ui/Button"
 import {register} from "@/actions/auth"
 import {toast} from "sonner";
 import {ThreeDots} from "react-loader-spinner";
+import {useRouter} from "next/navigation";
 
 /**
  * @see https://react.dev/reference/react-dom/hooks/useFormStatus
@@ -27,13 +28,20 @@ const FormSubmit = () => {
 }
 
 export default function Register() {
+    const router = useRouter();
     const [state, action] = useFormState(register, undefined)
 
     useEffect(() => {
         if (state?.message) {
-            toast.error(state.message)
+            state.success ?
+                toast.success(state.message) :
+                toast.error(state.message)
         }
-    }, [state]);
+
+        if (true == state?.success) {
+            router.replace('/login')
+        }
+    }, [router, state]);
 
     return (
         <main className="flex min-h-screen flex-col items-center justify-between p-6 md:p-12">
