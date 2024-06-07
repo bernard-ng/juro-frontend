@@ -10,7 +10,6 @@ import {Button} from "@/components/tailus-ui/Button"
 import {login} from "@/actions/auth"
 import {toast} from "sonner";
 import {useRouter} from "next/navigation";
-import {useBearerTokenDispatcher} from "@lib/contexts/AuthContext";
 import {ThreeDots} from "react-loader-spinner";
 
 /**

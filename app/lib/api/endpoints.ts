@@ -1,4 +1,4 @@
-const BASE_URL: string = process.env.API_URL || 'http://localhost:8000/api'
+const BASE_URL: string = process.env.API_URL || 'https://api.juro.life/api'
 
 /**
  * API endpoints

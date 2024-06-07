@@ -12,7 +12,6 @@ import Dialog from "@tailus-ui/Dialog";
 import Form from "@tailus-ui/Form";
 import {deleteChat, updateChat} from "@lib/api/api";
 import {useChatsDispatcher} from "@lib/contexts/ChatsContext";
-import {useBearerToken} from "@lib/contexts/AuthContext";
 
 export type ChatLinkProps = {
     id: number,
@@ -25,7 +24,6 @@ export const ChatLink: React.FC<ChatLinkProps> = ({
     href,
     title
 }) => {
-    const token = useBearerToken()
     const router = useRouter()
     const pathname = usePathname()
     const [isAlertOpen, setIsAlertOpen] = useState(false)
