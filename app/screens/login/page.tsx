@@ -31,7 +31,6 @@ const FormSubmit = () => {
 export default function Login() {
     const router = useRouter()
     const [state, action] = useFormState(login, undefined)
-    const setToken = useBearerTokenDispatcher()
 
     useEffect(() => {
         if (state?.message) {
@@ -39,11 +38,10 @@ export default function Login() {
         }
 
         if (state?.token) {
-            setToken(state.token)
             toast.success('Connexion réussie')
             router.push('/chat')
         }
-    }, [router, setToken, state]);
+    }, [router, state]);
 
     return (
         <main className="flex min-h-screen flex-col items-center justify-between p-6 md:p-12">

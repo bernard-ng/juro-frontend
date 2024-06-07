@@ -1,30 +1,28 @@
 "use client"
 import Link from "next/link";
-import {Info, LogOut, MenuIcon, PlusIcon} from "lucide-react";
+import {LogOut, MenuIcon, PlusIcon} from "lucide-react";
 import {ChatLink, ChatLinkProps} from "./ChatLink";
 import {ghostLeadingIconButton} from "@tailus/themer-button";
 import {useEffect, useState} from "react";
 import {Button} from "@tailus-ui/Button";
 import {cn} from "@/lib/utils";
 import {useChats, useChatsDispatcher} from "@lib/contexts/ChatsContext";
-import useSWR, {SWRResponse} from "swr";
 import {getChats} from "@lib/api/api";
-import {useBearerToken} from "@lib/contexts/AuthContext";
 
 export function Sidebar() {
     const [isOpen, setIsOpen] = useState<boolean>(true)
-    const {data}: SWRResponse<ChatLinkProps[]> = useSWR(useBearerToken(), getChats)
     const chats = useChats()
     const chatsDispatcher = useChatsDispatcher()
 
     useEffect(() => {
-        if (data) {
-            chatsDispatcher({type: 'SET_CHATS', payload: data})
-        }
-    }, [chatsDispatcher, data]);
+        getChats()
+            .then((chats) => {
+                chatsDispatcher({type: 'SET_CHATS', payload: chats})
+            })
+    }, [chatsDispatcher]);
 
     return (
-        <aside className={cn("fixed flex flex-col left-0 px-4 duration-300 ease-in-out -translate-x-64 py-6 inset-y-0 border-r w-64 bg-white dark:bg-gray-900 dark:border-transparent darK:shadow-md dark:shadow-gray-950 z-50", isOpen && "translate-x-0")}>
+        <aside className={cn("fixed flex flex-col left-0 px-4 duration-300 ease-in-out -translate-x-64 py-6 inset-y-0 border-r w-64 bg-white dark:bg-gray-900 dark:border-transparent darK:shadow-md dark:shadow-gray-950", isOpen && "translate-x-0")}>
             <div className="mb-6">
                 <Button
                     className={cn("delay-75", !isOpen && "translate-x-64")} icon="only" label="Ouvrir la barre"
@@ -52,15 +50,12 @@ export function Sidebar() {
             </div>
 
             <div className="mt-auto">
-                <Link className={ghostLeadingIconButton.gray.md} href="/parametres">
-                    <Info className="size-4"/>
-                    <span className="text-sm ml-1">Paramètres</span>
-                </Link>
-
-                <Link className={ghostLeadingIconButton.gray.md} href="/logout">
-                    <LogOut className="size-4"/>
-                    <span className="text-sm ml-1">Déconnexion</span>
-                </Link>
+                <form>
+                    <button type="submit" className={cn(ghostLeadingIconButton.gray.md, 'min-w-full')}>
+                        <LogOut className="size-4"/>
+                        <span className="text-sm ml-1">Déconnexion</span>
+                    </button>
+                </form>
             </div>
         </aside>
     );

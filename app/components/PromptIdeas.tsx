@@ -29,6 +29,12 @@ const ideas: Idea[] = [
         previewValue: "Conditions de validité d'un contrat de travail",
         isActive: false,
         intent: "accent"
+    },
+    {
+        value: "Quelles sont les différentes clauses qui peuvent figurer dans un contrat de travail ? Quelles sont les clauses obligatoires et les clauses interdites ?",
+        previewValue: "Les différentes clauses d'un contrat de travail",
+        isActive: false,
+        intent: "info"
     }
 ]
 
@@ -51,7 +57,7 @@ export const PromptIdeas = () => {
         }
     }
     return (
-        <div className="mt-12 grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
             {ideas.map((idea, index) => (
                 <PromptIdea
                     key={index}

@@ -19,7 +19,7 @@ type LoginFormData = {
 }
 
 export async function register(state: RegisterFormState,  formData: FormData): Promise<RegisterFormState> {
-    const validatedFields = RegisterFormSchema.safeParse({
+    const validatedFields: SafeParseReturnType<RegisterFormData, RegisterFormData> = RegisterFormSchema.safeParse({
         name: formData.get('name'),
         email: formData.get('email'),
         password: formData.get('password'),

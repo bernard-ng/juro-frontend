@@ -46,12 +46,12 @@ export const PromptIdea: React.FC<PromptIdeaProps> = ({
             data-state={isActive ? "on" : "off"}
         >
             <div className={cn(promptIdeaVariants({ intent }), "dark:bg-transparent dark:group-hover:bg-gray-900 dark:group-data-[state=on]:bg-gray-900" ,className)}>
-                <div className="rounded-full size-9 flex items-center justify-center dark:!bg-gray-800 dark:text-white">
+                <div className="rounded-full md:mb-2 size-9 flex items-center justify-center dark:!bg-gray-800 dark:text-white">
                     {
                         isActive ? <CheckIcon /> : <Lightbulb className="size-5 m-auto" />
                     }
                 </div>
-                <p className="text-left text-sm md:text-base line-clamp-3">
+                <p className="text-left text-sm md:text-sm line-clamp-3">
                     {previewValue}
                 </p>
             </div>

@@ -3,7 +3,7 @@ import DropdownMenu from "@tailus-ui/DropdownMenu";
 import { Button } from "@tailus-ui/Button";
 import { EllipsisVertical, Pencil, Trash } from "lucide-react";
 import Link from "next/link";
-import React, {useContext, useState} from "react";
+import React, {useState} from "react";
 import {usePathname, useRouter} from 'next/navigation'
 import { cn } from "@/lib/utils";
 import { toast } from 'sonner'
@@ -11,7 +11,7 @@ import AlertDialog from "@tailus-ui/AlertDialog";
 import Dialog from "@tailus-ui/Dialog";
 import Form from "@tailus-ui/Form";
 import {deleteChat, updateChat} from "@lib/api/api";
-import {useChats, useChatsDispatcher} from "@lib/contexts/ChatsContext";
+import {useChatsDispatcher} from "@lib/contexts/ChatsContext";
 import {useBearerToken} from "@lib/contexts/AuthContext";
 
 export type ChatLinkProps = {
@@ -36,7 +36,7 @@ export const ChatLink: React.FC<ChatLinkProps> = ({
     const handleUpdateChat = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
-        const response = await updateChat(id, renameInputValue, token)
+        const response = await updateChat(id.toString(), renameInputValue)
         if (response.success) {
             setIsDialogOpen(false)
             setRenameInputValue(renameInputValue)
@@ -48,7 +48,7 @@ export const ChatLink: React.FC<ChatLinkProps> = ({
     }
 
     const handleDeleteChat = async () => {
-        const response = await deleteChat(id, token)
+        const response = await deleteChat(id.toString())
 
         if (response.success) {
             setIsAlertOpen(false)
@@ -69,7 +69,7 @@ export const ChatLink: React.FC<ChatLinkProps> = ({
             <Link
                 href={href}
                 className={cn(
-                        "rounded-[--btn-border-radius] h-full w-full flex items-center px-4 text-sm text-gray-700 dark:text-gray-300 focus-visible:outline outline-2 outline-primary-600 text-nowrap",
+                        "rounded-[--btn-border-radius] h-full w-full flex items-center px-4 text-sm text-gray-700 dark:text-gray-300 focus-visible:outline outline-2 outline-primary-600 text-nowrap truncate overflow-hidden",
                         (pathname == href) && "bg-gray-100 dark:bg-gray-800"
                     )
                 }

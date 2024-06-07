@@ -9,19 +9,17 @@ import {IdeaProvider} from "@lib/contexts/IdeaContext";
 import {ChatsProvider} from "@lib/contexts/ChatsContext";
 import {sendMessage, createChat} from "@lib/api/api";
 import {toast} from "sonner";
-import {useBearerToken} from "@lib/contexts/AuthContext";
 import {useRouter} from "next/navigation";
 import {Chat} from "@lib/api/model";
 
 export default function Home() {
     const router = useRouter()
-    const bearerToken = useBearerToken()
 
     const handleSubmit = async (prompt: string) => {
-        const createChatResponse = await createChat('Nouveau chat', bearerToken);
+        const createChatResponse = await createChat('Nouveau chat');
         if (createChatResponse.success) {
             const chat: Chat = createChatResponse.data
-            const sendMessageResponse = await sendMessage(chat.id, prompt, bearerToken)
+            const sendMessageResponse = await sendMessage(chat.id.toString(), prompt)
 
             if (sendMessageResponse.success) {
                 router.replace(`/chat/${chat.id}`)

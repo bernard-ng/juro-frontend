@@ -1,9 +1,8 @@
 'use client'
 import PromptInput from "@/components/PromptInput"
 import {Sidebar} from "@/components/Sidebar";
-import {ChatsProvider, useChatsDispatcher} from "@lib/contexts/ChatsContext";
+import {ChatsProvider} from "@lib/contexts/ChatsContext";
 import useSWR from "swr";
-import {useBearerToken} from "@lib/contexts/AuthContext";
 import {getMessages, sendMessage} from "@lib/api/api";
 import {Message} from "@lib/api/model";
 import {useEffect, useReducer, useRef} from "react";
@@ -12,12 +11,8 @@ import {toast} from "sonner";
 import {ChatBubble} from "@/components/ChatBubble";
 
 export default function Chat({ params }: { params: { id: number } }) {
-    const bearerToken = useBearerToken()
     const [messages, messagesDispatcher] = useReducer(messagesReducer, [])
-    const {data} = useSWR<Message[]>(
-        [params.id, bearerToken],
-        ([chatId, token]) => getMessages(chatId, token as string)
-    )
+    const {data} = useSWR<Message[]>(params.id.toString(), getMessages)
     const messagesEndRef = useRef<HTMLDivElement|null>(null)
 
     const scrollToBottom = () => {
@@ -40,7 +35,7 @@ export default function Chat({ params }: { params: { id: number } }) {
             payload: {sender: 'user', message: prompt, created_at: (new Date()).toISOString()}
         })
 
-        const response = await sendMessage(params.id, prompt, bearerToken)
+        const response = await sendMessage(params.id.toString(), prompt)
 
         if (response.success) {
             messagesDispatcher({type: 'ADD_MESSAGE', payload: response.data})
