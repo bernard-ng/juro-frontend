@@ -96,7 +96,6 @@ export async function fetchApi<T>(url: string, options: RequestInit, noContent =
             ...options,
             credentials: 'include',
             headers: {
-                'Accept': 'application/json',
                 'Content-Type': options.method == 'PATCH' ? 'application/merge-patch+json' : 'application/json',
             }
         })

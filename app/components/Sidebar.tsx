@@ -8,11 +8,14 @@ import {Button} from "@tailus-ui/Button";
 import {cn} from "@/lib/utils";
 import {useChats, useChatsDispatcher} from "@lib/contexts/ChatsContext";
 import {getChats} from "@lib/api/api";
+import {useFormState} from "react-dom";
+import {logout} from "@/actions/auth";
 
 export function Sidebar() {
     const [isOpen, setIsOpen] = useState<boolean>(true)
     const chats = useChats()
     const chatsDispatcher = useChatsDispatcher()
+    const [state, action] = useFormState(logout, undefined);
 
     useEffect(() => {
         getChats()
@@ -50,7 +53,7 @@ export function Sidebar() {
             </div>
 
             <div className="mt-auto">
-                <form>
+                <form action={action}>
                     <button type="submit" className={cn(ghostLeadingIconButton.gray.md, 'min-w-full')}>
                         <LogOut className="size-4"/>
                         <span className="text-sm ml-1">Déconnexion</span>
