@@ -30,6 +30,7 @@
     "react-content-loader": "^7.0.0",
     "react-dom": "canary",
     "react-loader-spinner": "^6.1.6",
+    "react-loading-skeleton": "^3.4.0",
     "sonner": "^1.4.41",
     "swr": "^2.2.5",
     "tailwind-merge": "^2.2.2",
